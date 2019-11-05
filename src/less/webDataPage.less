@@ -1,0 +1,66 @@
+canvas {
+    pointer-events: none;
+    margin: 20px 0px 0px 0px;
+}
+
+.web_data {
+    .white_block;
+
+    .web_data_top {
+
+
+        .web_data_head {
+            margin: 10px 0px 10px 0px;
+            .center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
+
+            .web_data_head_input_holder {
+                margin: 5px 20px 5px 20px;
+                font-size: 16px;
+            }
+        }
+    }
+
+    .web_data_toggle_button_holder {
+        .center;
+        margin: 20px 5px 20px 5px;
+    }
+
+    .web_data_table {
+
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0px 20px 0px;
+
+        .row {
+            border-bottom: 1px solid @grey_5;
+            min-height: 30px;
+            .center;
+            text-align: center;
+            padding: 3px 0px 3px 0px;
+
+            .column {
+                .center;
+                padding: 3px 5px 3px 5px;
+                width: 150px;
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 480px) {
+    .web_data {
+        .white_block_480;
+    }
+
+    .column {
+        width: 100px;
+    }
+
+    .s {
+        font-size: 10px;
+    }
+}

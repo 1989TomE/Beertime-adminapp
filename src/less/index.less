@@ -1,0 +1,261 @@
+//less-watch-compiler less css index.less
+
+
+@import "navBar";
+@import "webDataPage";
+@import "inputCheckbox";
+@import "inputField";
+@import "button";
+@import "usersPage";
+@import "searchBox";
+@import "user";
+@import "defaults";
+@import "userDetail";
+
+
+//variables 
+@orange: rgb(251, 176, 59);
+@background: @orange;
+@grey_10: rgb(60, 60, 60);
+@grey_7: rgb(200, 200, 200);
+@grey_5: rgb(230, 230, 230);
+@grey_4: rgb(240, 240, 240);
+@grey_3: rgb(250, 250, 250);
+@grey_1: rgb(252, 252, 252);
+
+
+//common styles and css helper classes
+* {
+    font-family: Roboto, sans-serif;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+html,
+body {
+    background-color: @background;
+    font-size: 15px;
+    height: 100%;
+
+}
+
+// Main Layout
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+.main {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    max-width: 960px;
+    min-width: 320px;
+    margin: 0 auto;
+    min-height: 100%;
+}
+
+@media only screen and (max-width : 480px) {
+    .main {
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
+    }
+}
+
+
+//status icons
+.statusIconHolder {
+    .center;
+    flex-direction: column;
+    width: 60px;
+    height: 60px;
+
+    .statusIcon {
+        height: 50px;
+        width: auto;
+    }
+
+    .statusArrival {
+        height: 30px;
+        width: auto;
+
+    }
+
+    .statusIconTime {
+        color: @orange;
+        margin-top: 3px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+}
+
+
+
+
+
+
+
+
+//loader component 
+
+//keyframes
+@keyframes spinner_animation {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    80% {}
+
+    90% {
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.loader_wrapper {
+    margin-top: 20px;
+    display: none;
+
+    .loader {
+        height: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .bounce_container {
+            margin: 0px 3px 0px 3px;
+
+            .bounce {
+                opacity: 0;
+                width: 10px;
+                height: 10px;
+                background-color: @grey_10;
+                border-radius: 100%;
+                animation-name: spinner_animation;
+                animation-delay: 0s;
+                animation-direction: normal;
+                animation-duration: 2s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+                border: 0 none;
+            }
+
+            .bounce1 {
+                animation-delay: 0s;
+            }
+
+            .bounce2 {
+                animation-delay: 0.2s;
+            }
+
+            .bounce3 {
+                animation-delay: 0.4s;
+            }
+
+            .bounce4 {
+                animation-delay: 0.6s;
+            }
+
+            .bounce5 {
+                animation-delay: 0.8s;
+            }
+        }
+    }
+}
+
+.loader_wrapper_none {
+    display: none;
+}
+
+
+
+
+// loginForm component
+.login_form {
+    display: flex;
+    flex-direction: column;
+    height: 180px;
+    justify-content: space-between;
+    margin-top: 40px;
+
+    .login_form_topic {
+        padding-left: 10px;
+    }
+}
+
+// NavBar component
+
+
+
+
+// pages
+
+.container {
+    background-color: @orange;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    min-height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 320px;
+
+}
+
+.beertime {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .beertime_text {
+        font-size: 18px;
+        font-weight: 700;
+        text-align: center;
+
+    }
+
+    .beertime_text_grey {
+
+        .beertime_text;
+        color: @grey_10;
+    }
+
+    .beertime_text_white {
+        .beertime_text;
+        color: white;
+    }
+
+    .beertime_logo {
+        margin-top: 20px;
+        height: 40px;
+
+    }
+
+}
+
+.beertime_android {
+    margin-top: 20px;
+    height: 500px;
+}
+
+.not-found {
+    font-size: 18px;
+    margin-top: 50px;
+    text-align: center;
+    color: @grey_10;
+}

@@ -1,0 +1,75 @@
+.user_field {
+    display: flex;
+    padding: 0px;
+    justify-content: space-between;
+    text-decoration: none;
+    background-color: @grey_4;
+    border-radius: 10px;
+    padding: 5px 5px 5px 5px;
+    margin: 10px 5px 10px 5px;
+
+    .user_field_left {
+        display: flex;
+
+        .user_field_picture_holder {
+            min-width: 60px;
+            .center;
+
+            .user_field_picture {
+                height: 50px;
+                border-radius: 50%;
+            }
+        }
+
+        .user_field_name_and_status {
+            display: flex;
+            margin-left: 15px;
+            flex-direction: column;
+            justify-content: center;
+
+            .user_field_name {
+                text-align: left;
+                font-weight: 700;
+            }
+
+            .user_field_status {
+                text-align: left;
+
+            }
+        }
+    }
+
+    .user_field_right {
+        overflow: auto;
+        min-width: 60px;
+
+
+        .user_field_status_icons {
+            display: flex;
+            margin-left: 25px;
+
+        }
+    }
+}
+
+.hover:hover {
+    // border: 1px solid @grey_10;
+    background-color: @grey_5;
+    cursor: pointer;
+}
+
+// User component
+.user_info_field {
+    display: flex;
+    padding: 5px;
+    border: 1px solid @grey_5;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    justify-content: space-between;
+    min-height: 100%;
+
+    ul {
+        width: 100%;
+    }
+}

@@ -1,0 +1,51 @@
+// Input component
+input[type=text],
+input[type=password] {
+    /* Remove First */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.input {
+    background-color: @grey_4;
+    border: 2px solid @grey_4;
+    min-width: 30px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    outline-style: none;
+    flex: 1;
+}
+
+.input_small {
+    .input;
+    min-width: 30px;
+    max-width: 80px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.input_text_align_left {
+    .input;
+    text-align: left;
+    padding-left: 10px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.input_login {
+    .input;
+    text-align: left;
+    padding-left: 10px;
+    background-color: @grey_1;
+    border: 2px solid @grey_1;
+    width: 270px;
+    flex: 0;
+    height: 60px;
+    padding: 10px;
+}
+
+.error {
+    .error_border;
+}
