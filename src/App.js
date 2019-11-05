@@ -3,8 +3,6 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Joi from "@hapi/joi";
 import $ from "jquery";
 import { handleAjaxError, http, apiEndPoint } from "./utils/backendCalls";
-import { Auth } from "./utils/auth";
-
 import { ToastContainer, toast } from "react-toastify";
 import ProtectedRoute from "./components/protectedRoute";
 import LoginPage from "./components/loginPage";
