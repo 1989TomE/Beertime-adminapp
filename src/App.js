@@ -30,7 +30,16 @@ class App extends Component {
   };
   // preserve the initial state in a new object
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.ajaxSetup();
+    this.loadDataFromServer();
+  }
+
+  ajaxSetup = () => {
+    $.ajaxSetup({ cache: false });
+  };
+
+  loadDataFromServer = async () => {
     const token = localStorage.getItem("token");
     try {
       let data = await http.get(apiEndPoint + "mainData.php", {
@@ -47,9 +56,8 @@ class App extends Component {
       localStorage.clear();
       window.location.reload(false);
     }
-  }
+  };
 
-  // tady pokračujeme s joi
   validate = (value, name) => {
     const schema = Joi.object({
       default: Joi.string().pattern(
