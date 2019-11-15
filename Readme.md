@@ -8,7 +8,7 @@ Notice: App does not show real data!
 
 // CZ
 
-Projekt obsahuje zdrojové soubory pro Beertime admin app vytvořen pomocí React.js. Aplikace je dostupná z internetové adresy https://adminapp.beertime.net. pro přihlášení do aplikace použijte níže uvedené přihlašovací údaje.
+Projekt obsahuje zdrojové soubory pro Beertime admin app vytvořen pomocí React.js. Aplikace je dostupná z internetové adresy https://adminapp.beertime.net. Pro přihlášení do aplikace použijte níže uvedené přihlašovací údaje.
 
 Upozornění: aplikace nezobrazuje reálná data!
 
