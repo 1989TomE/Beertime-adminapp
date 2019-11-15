@@ -12,6 +12,5 @@ Projekt obsahuje zdrojové soubory pro Beertime admin app vytvořen pomocí Reac
 
 Upozornění: aplikace nezobrazuje reálná data!
 
-Email: guest@beertime.net
-
+Email: guest@beertime.net<br/>
 Password: AdminTestAccount
