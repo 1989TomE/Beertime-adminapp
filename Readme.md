@@ -10,3 +10,5 @@ Upozornění: aplikace nezobrazuje reálná data!
 
 Email: guest@beertime.net<br/>
 Password: AdminTestAccount
+
+![preview image](https://github.com/1989TomE/Beertime-adminapp/master/src/images/preview.png)
