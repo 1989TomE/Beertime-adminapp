@@ -13,7 +13,7 @@ class UserDetail extends Component {
       usersData,
       usersDataBackup,
       errors,
-      handleChangeForInput,
+      handleChangeForUserInputFields,
       handleSaveChanges
     } = this.props;
 
@@ -31,7 +31,7 @@ class UserDetail extends Component {
             <Info
               user={user}
               errors={errors}
-              handleChangeForInput={handleChangeForInput}
+              handleChangeForUserInputFields={handleChangeForUserInputFields}
             />
             <div className="user_detail_bottom">
               <Button

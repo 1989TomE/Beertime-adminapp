@@ -33,7 +33,14 @@ class InputField extends Component {
   };
 
   render() {
-    const { name, errors, value, handleChangeForInput, type } = this.props;
+    const {
+      name,
+      errors,
+      value,
+      handleChangeEvent,
+      type,
+      ...rest
+    } = this.props;
 
     return (
       <input
@@ -41,10 +48,11 @@ class InputField extends Component {
         type={type}
         className={this.getRowsToDisplayClassName(errors, name)}
         value={value}
-        onChange={handleChangeForInput}
+        onChange={handleChangeEvent}
         name={name}
         disabled={this.getDisabled(name, value)}
         placeholder={this.getPlaceholder(name)}
+        {...rest}
       />
     );
   }

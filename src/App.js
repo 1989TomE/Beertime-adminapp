@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Joi from "@hapi/joi";
 import $ from "jquery";
 import { handleAjaxError, http, apiEndPoint } from "./utils/backendCalls";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,7 +9,11 @@ import NotFoundPage from "./components/notFoundPage";
 import UserDetail from "./components/userDetail";
 import WebDataPage from "./components/webDataPage";
 import UsersPage from "./components/usersPage";
-import { deepClone } from "./utils/functions";
+import {
+  deepClone,
+  validate,
+  saveAndDisplayInputErrors
+} from "./utils/functions";
 import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
@@ -61,59 +64,6 @@ class App extends Component {
     }
   };
 
-  validate = (value, name) => {
-    const schema = Joi.object({
-      default: Joi.string().pattern(
-        /^[a-zA-Z0-9áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ ]*$/
-      ),
-      rowsToDisplay: Joi.number()
-        .allow("")
-        .max(100),
-      searchInput: Joi.string()
-        .allow("")
-        .pattern(/^[a-zA-Z0-9áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ ]*$/),
-      drink_count: Joi.number()
-        .allow("")
-        .min(0)
-        .max(9)
-    });
-
-    // set default or named validation
-    const getSchemaHelper = name => {
-      if (name === "rowsToDisplay" || name === "searchInput") {
-        return name;
-      } else {
-        return "default";
-      }
-    };
-
-    const getSchema = getSchemaHelper(name);
-    var result = schema.validate({ [getSchema]: value });
-
-    const errors = { ...this.state.errors };
-
-    if (result.error) {
-      // dont show error message again if it has been shown already
-      if (!this.state.errors[name]) {
-        if (name === "searchInput")
-          errors[name] =
-            "Pole vyhledávání může obsahovat pouze písmena a čísla.";
-        else if (name === "rowsToDisplay")
-          errors[name] =
-            "Pole může obsahovat pouze čísla menší nebo rovna 100.";
-        else if (name === "email")
-          errors[name] = "Email není ve správném formátu";
-        else if (name === "password")
-          errors[name] = "Pole Heslo musí být vyplněno";
-        else errors[name] = "Pole může obsahovat pouze písmena a čísla";
-        toast.error(errors[name]);
-      }
-    } else {
-      delete errors[name];
-    }
-    return errors;
-  };
-
   handleChangeForCheckbox = e => {
     const name = e.currentTarget.name;
     const clickedValue = e.currentTarget.value;
@@ -128,24 +78,36 @@ class App extends Component {
     const value = e.currentTarget.value;
 
     // check for input errors
-    const errors = this.validate(value, name);
-    if (
-      name === "rowsToDisplay" ||
-      name === "searchInput" ||
-      name === "email" ||
-      name === "password"
-    ) {
-      this.setState({ errors, [name]: value });
-    } else {
-      const usersData = [...this.state.usersData];
-      const currentUser = $("#facebook_id").val();
-      const index = usersData.findIndex(
-        user => user.facebook_id === currentUser
-      );
-      const cloneUser = usersData[index];
-      cloneUser[name] = value;
-      this.setState({ errors, usersData });
-    }
+    const error = validate(value, name);
+
+    // show and save error or delete it if error has been fixed
+    const errors = saveAndDisplayInputErrors(error, name, {
+      ...this.state.errors
+    });
+
+    this.setState({ errors, [name]: value });
+  };
+
+  // for any input field
+  handleChangeForUserInputFields = (e, facebook_id) => {
+    const name = e.currentTarget.name;
+    const value = e.currentTarget.value;
+    const currentUserID = facebook_id;
+
+    // check for input errors
+    const error = validate(value, name);
+    const errors = saveAndDisplayInputErrors(error, name, {
+      ...this.state.errors
+    });
+
+    // update user data
+    const usersData = [...this.state.usersData];
+    const index = usersData.findIndex(
+      user => user.facebook_id === currentUserID
+    );
+    const cloneUser = usersData[index];
+    cloneUser[name] = value;
+    this.setState({ errors, usersData });
   };
 
   handleSaveChanges = async facebook_id => {
@@ -251,7 +213,9 @@ class App extends Component {
                 usersData={usersData}
                 usersDataBackup={usersDataBackup}
                 errors={errors}
-                handleChangeForInput={this.handleChangeForInput}
+                handleChangeForUserInputFields={
+                  this.handleChangeForUserInputFields
+                }
                 handleSaveChanges={this.handleSaveChanges}
               />
             )}

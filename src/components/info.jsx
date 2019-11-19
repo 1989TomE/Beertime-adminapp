@@ -3,7 +3,7 @@ import InfoLine from "./infoLine";
 
 class Info extends Component {
   render() {
-    const { user, errors, handleChangeForInput } = this.props;
+    const { user, errors, handleChangeForUserInputFields } = this.props;
     return (
       <div className="user_info_field">
         <ul>
@@ -14,7 +14,7 @@ class Info extends Component {
                 value={user[key]}
                 facebook_id={user.facebook_id}
                 errors={errors}
-                handleChangeForInput={handleChangeForInput}
+                handleChangeForUserInputFields={handleChangeForUserInputFields}
               />
             </li>
           ))}
