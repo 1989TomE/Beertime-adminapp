@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class InputField extends Component {
-  getRowsToDisplayClassName = (errors, name) => {
+  displayClassName = (errors, name) => {
     let className = "input";
     if (name === "email" || name === "password") className = "input_login";
     else if (name === "rowsToDisplay") className = "input_small";
@@ -33,26 +33,18 @@ class InputField extends Component {
   };
 
   render() {
-    const {
-      name,
-      errors,
-      value,
-      handleChangeEvent,
-      type,
-      ...rest
-    } = this.props;
+    const { name, errors, value, handleChangeEvent, type } = this.props;
 
     return (
       <input
         id={name}
         type={type}
-        className={this.getRowsToDisplayClassName(errors, name)}
+        className={this.displayClassName(errors, name)}
         value={value}
         onChange={handleChangeEvent}
         name={name}
         disabled={this.getDisabled(name, value)}
         placeholder={this.getPlaceholder(name)}
-        {...rest}
       />
     );
   }

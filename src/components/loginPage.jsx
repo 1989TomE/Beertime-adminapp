@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Joi from "@hapi/joi";
 import { toast } from "react-toastify";
-import { Auth } from "../utils/auth";
 import Beertime from "./beertime";
 import LoginForm from "./loginForm";
 import { http, apiEndPoint } from "../utils/backendCalls";

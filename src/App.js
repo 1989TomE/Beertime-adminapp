@@ -27,8 +27,6 @@ class App extends Component {
     rowsToDisplayCheckbox: "checked",
     activityCheckbox: "",
     errors: {},
-    currentUser: null,
-    loader: true,
     usersDataBackup: []
   };
   // preserve the initial state in a new object
@@ -152,8 +150,7 @@ class App extends Component {
       errors,
       searchInput,
       email,
-      password,
-      loader
+      password
     } = this.state;
 
     return (
@@ -170,7 +167,6 @@ class App extends Component {
                 passwordValue={password}
                 errors={errors}
                 handleLogin={this.handleLogin}
-                loader={loader}
               />
             )}
           />

@@ -19,9 +19,8 @@ class LoginForm extends Component {
           id="email"
           name="email"
           type="text"
-          className="input"
           value={email}
-          handleChangeForInput={handleChangeForInput}
+          handleChangeEvent={handleChangeForInput}
           errors={errors}
         />
 
@@ -29,9 +28,8 @@ class LoginForm extends Component {
           id="password"
           name="password"
           type="password"
-          className="input"
           value={password}
-          handleChangeForInput={handleChangeForInput}
+          handleChangeEvent={handleChangeForInput}
           errors={errors}
         />
 
