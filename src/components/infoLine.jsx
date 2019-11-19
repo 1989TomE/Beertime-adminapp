@@ -10,7 +10,8 @@ class infoLine extends Component {
       "Lname",
       "app_version",
       "status",
-      "loged_in"
+      "loged_in",
+      "number_of_friends"
     ];
     return renderTheseKeys.indexOf(property) >= 0;
   };

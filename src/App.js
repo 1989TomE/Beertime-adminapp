@@ -53,8 +53,11 @@ class App extends Component {
       this.setState({ webData, usersData, usersDataBackup });
     } catch (error) {
       handleAjaxError(error);
-      localStorage.clear();
-      window.location.reload(false);
+
+      if (error.type === "auth") {
+        localStorage.clear();
+        window.location.reload(false);
+      }
     }
   };
 
@@ -145,18 +148,12 @@ class App extends Component {
     }
   };
 
-  handleSaveChanges = async () => {
-    const usersData = [...this.state.usersData];
-    const currentUser = $("#facebook_id").val();
+  handleSaveChanges = async facebook_id => {
+    const usersData = this.state.usersData;
 
-    const index = usersData.findIndex(user => user.facebook_id === currentUser);
-    const cloneUser = usersData[index];
+    const index = usersData.findIndex(user => user.facebook_id === facebook_id);
 
-    let dataToServer = {};
-    for (let key in cloneUser) {
-      dataToServer[key] = cloneUser[key];
-    }
-    dataToServer = JSON.stringify(dataToServer);
+    const dataToServer = JSON.stringify(usersData[index]);
 
     const errors = this.state.errors;
     if (Object.keys(errors).length > 0) {

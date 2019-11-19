@@ -34,7 +34,10 @@ class UserDetail extends Component {
               handleChangeForInput={handleChangeForInput}
             />
             <div className="user_detail_bottom">
-              <Button handleEvent={handleSaveChanges} label="Uložit změny" />
+              <Button
+                handleEvent={() => handleSaveChanges(user.facebook_id)}
+                label="Uložit změny"
+              />
             </div>
           </div>
         </div>
