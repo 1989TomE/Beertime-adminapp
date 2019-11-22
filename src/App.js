@@ -9,7 +9,7 @@ import NotFoundPage from "./components/notFoundPage";
 import UserDetail from "./components/userDetail";
 import WebDataPage from "./components/webDataPage";
 import UsersPage from "./components/usersPage";
-import { fetch_data } from "./store/actions/rootActions";
+import { fetch_data } from "./store/actions/fetchServerDataActions";
 import {connect} from "react-redux";
 import {
   deepClone,

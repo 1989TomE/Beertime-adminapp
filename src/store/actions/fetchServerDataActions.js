@@ -9,7 +9,7 @@ export const fetch_data = async (dispatch) => {
     try {
       const token = localStorage.getItem("token");
 
-      let data = await http.get(apiEndPoint + "mainData.php", {
+      let data = await http.get(apiEndPoint + "smainData.php", {
         limit: 100,
         token: token
       });

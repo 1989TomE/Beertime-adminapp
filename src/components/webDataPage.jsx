@@ -195,7 +195,11 @@ class WebDataPage extends Component {
                 />
               </div>
             </div>
-            <div className="web_data_graph" id="web_data_graph"></div>
+            <div className="web_data_graph" id="web_data_graph">
+              <div className="noData">
+            Graf nelze vykreslit
+          </div>
+          </div>
             <canvas id="myChart"></canvas>
             <div className="web_data_toggle_button_holder">
               <Button

@@ -1,4 +1,4 @@
-import {FETCH_DATA} from "../actions/rootActions"
+import {FETCH_DATA} from "../actions/fetchServerDataActions"
 
 const init = [];
 
