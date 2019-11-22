@@ -9,12 +9,15 @@ import NotFoundPage from "./components/notFoundPage";
 import UserDetail from "./components/userDetail";
 import WebDataPage from "./components/webDataPage";
 import UsersPage from "./components/usersPage";
+import { fetch_data } from "./store/actions/rootActions";
+import {connect} from "react-redux";
 import {
   deepClone,
   validate,
   saveAndDisplayInputErrors
 } from "./utils/functions";
 import "react-toastify/dist/ReactToastify.css";
+
 
 class App extends Component {
   state = {
@@ -31,36 +34,38 @@ class App extends Component {
   };
   // preserve the initial state in a new object
 
+  
+
   componentDidMount() {
     this.ajaxSetup();
-    this.loadDataFromServer();
+    this.props.loadDataFromServer();
   }
 
   ajaxSetup = () => {
     $.ajaxSetup({ cache: false });
   };
 
-  loadDataFromServer = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      let data = await http.get(apiEndPoint + "mainData.php", {
-        limit: 100,
-        token: token
-      });
-      data = $.parseJSON(data);
-      const webData = data.webData;
-      const usersData = data.usersData;
-      const usersDataBackup = deepClone(data.usersData);
-      this.setState({ webData, usersData, usersDataBackup });
-    } catch (error) {
-      handleAjaxError(error);
+  // loadDataFromServer = async () => {
+  //   const token = localStorage.getItem("token");
+  //   try {
+  //     let data = await http.get(apiEndPoint + "mainData.php", {
+  //       limit: 100,
+  //       token: token
+  //     });
+  //     data = $.parseJSON(data);
+  //     const webData = data.webData;
+  //     const usersData = data.usersData;
+  //     const usersDataBackup = deepClone(data.usersData);
+  //     this.setState({ webData, usersData, usersDataBackup });
+  //   } catch (error) {
+  //     handleAjaxError(error);
 
-      if (error.type === "auth") {
-        localStorage.clear();
-        window.location.reload(false);
-      }
-    }
-  };
+  //     if (error.type === "auth") {
+  //       localStorage.clear();
+  //       window.location.reload(false);
+  //     }
+  //   }
+  // };
 
   handleChangeForCheckbox = e => {
     const name = e.currentTarget.name;
@@ -141,10 +146,12 @@ class App extends Component {
   };
 
   render() {
+
+    console.log(this.props);
+
+    const {usersData, usersDataBackup, webData} = this.props;
+
     const {
-      usersData,
-      webData,
-      usersDataBackup,
       rowsToDisplay,
       activityCheckbox,
       rowsToDisplayCheckbox,
@@ -226,4 +233,18 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    usersData: state.usersData,
+    usersDataBackup: state.usersDataBackup,
+    webData: state.webData,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadDataFromServer: () => {dispatch(fetch_data)}
+  }
+}
+
+export default connect (mapStateToProps, mapDispatchToProps)(App);

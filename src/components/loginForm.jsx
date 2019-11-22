@@ -4,11 +4,6 @@ import Button from "./button";
 
 class LoginForm extends Component {
 
-  handleKeyPress = (e) => {
-    console.log(e);
-    //if (e.charCode === 13) {this.handleLogin()}
-  }
-
   render() {
     const {
       email,

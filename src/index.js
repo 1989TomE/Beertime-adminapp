@@ -5,11 +5,16 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "./css/index.css";
 import "typeface-roboto";
+import store from "./store/store";
+import {Provider} from "react-redux";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <Provider store={store}> 
+   <BrowserRouter>
+  <App />
+</BrowserRouter>
+</Provider>
+,
   document.getElementById("root")
 );
 
