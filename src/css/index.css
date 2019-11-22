@@ -263,7 +263,7 @@ canvas {
   top: 3px;
   width: 6px;
   height: 16px;
-  border: solid red;
+  border: solid blue;
   border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -590,7 +590,7 @@ ul {
 }
 html,
 body {
-  background-color: red;
+  background-color: blue;
   font-size: 15px;
   height: 100%;
 }
@@ -629,7 +629,7 @@ body {
   width: auto;
 }
 .statusIconHolder .statusIconTime {
-  color: red;
+  color: blue;
   margin-top: 3px;
   font-size: 14px;
   font-weight: 700;
@@ -706,7 +706,7 @@ body {
   padding-left: 10px;
 }
 .container {
-  background-color: red;
+  background-color: blue;
   position: absolute;
   top: 0px;
   bottom: 0px;
