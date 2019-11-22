@@ -33,7 +33,7 @@ class InputField extends Component {
   };
 
   render() {
-    const { name, errors, value, handleChangeEvent, type } = this.props;
+    const { name, errors, value, handleChangeEvent, type , ...rest} = this.props;
 
     return (
       <input
@@ -45,6 +45,7 @@ class InputField extends Component {
         name={name}
         disabled={this.getDisabled(name, value)}
         placeholder={this.getPlaceholder(name)}
+        {...rest}
       />
     );
   }

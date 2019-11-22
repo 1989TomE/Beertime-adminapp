@@ -19,6 +19,10 @@ class LoginPage extends Component {
     this.setState({ [name]: value });
   };
 
+  handleKeyPress = (e) => {
+    if (e.charCode === 13) this.handleLogin();
+  }
+
   handleLogin = async () => {
     const email = this.state.email;
     const password = this.state.password;
@@ -69,6 +73,7 @@ class LoginPage extends Component {
           handleChangeForInput={this.handleChangeForInput}
           errors={errors}
           handleLogin={this.handleLogin}
+          handleKeyPress={this.handleKeyPress}
         />
       </div>
     );

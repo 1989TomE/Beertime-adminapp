@@ -72,6 +72,7 @@ class App extends Component {
 
   // for any input field
   handleChangeForInput = e => {
+
     const name = e.currentTarget.name;
     const value = e.currentTarget.value;
 

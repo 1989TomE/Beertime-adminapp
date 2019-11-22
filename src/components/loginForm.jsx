@@ -3,14 +3,20 @@ import InputField from "./inputField";
 import Button from "./button";
 
 class LoginForm extends Component {
-  state = {};
+
+  handleKeyPress = (e) => {
+    console.log(e);
+    //if (e.charCode === 13) {this.handleLogin()}
+  }
+
   render() {
     const {
       email,
       password,
       handleChangeForInput,
       errors,
-      handleLogin
+      handleLogin,
+      handleKeyPress
     } = this.props;
     return (
       <div className="login_form">
@@ -22,6 +28,7 @@ class LoginForm extends Component {
           value={email}
           handleChangeEvent={handleChangeForInput}
           errors={errors}
+          onKeyPress={handleKeyPress}
         />
 
         <InputField
@@ -31,6 +38,7 @@ class LoginForm extends Component {
           value={password}
           handleChangeEvent={handleChangeForInput}
           errors={errors}
+          onKeyPress={handleKeyPress}
         />
 
         <Button handleEvent={handleLogin} label="Přihlásit se" />
