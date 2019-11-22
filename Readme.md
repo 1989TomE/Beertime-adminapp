@@ -1,4 +1,4 @@
-Beertime adminapp
+Beertime adminapp src
 
 // EN
 This project contains source files for Beertime admin app build with React.js. Admin app is available at https://adminapp.beertime.net. To login into the app use login credentials at the bottom of this document.<br/>
