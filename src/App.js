@@ -23,14 +23,11 @@ class App extends Component {
   state = {
     email: "",
     password: "",
-    webData: [],
-    usersData: [],
     rowsToDisplay: 15,
     searchInput: "",
     rowsToDisplayCheckbox: "checked",
     activityCheckbox: "",
     errors: {},
-    usersDataBackup: []
   };
   // preserve the initial state in a new object
 
@@ -44,28 +41,6 @@ class App extends Component {
   ajaxSetup = () => {
     $.ajaxSetup({ cache: false });
   };
-
-  // loadDataFromServer = async () => {
-  //   const token = localStorage.getItem("token");
-  //   try {
-  //     let data = await http.get(apiEndPoint + "mainData.php", {
-  //       limit: 100,
-  //       token: token
-  //     });
-  //     data = $.parseJSON(data);
-  //     const webData = data.webData;
-  //     const usersData = data.usersData;
-  //     const usersDataBackup = deepClone(data.usersData);
-  //     this.setState({ webData, usersData, usersDataBackup });
-  //   } catch (error) {
-  //     handleAjaxError(error);
-
-  //     if (error.type === "auth") {
-  //       localStorage.clear();
-  //       window.location.reload(false);
-  //     }
-  //   }
-  // };
 
   handleChangeForCheckbox = e => {
     const name = e.currentTarget.name;
@@ -146,8 +121,6 @@ class App extends Component {
   };
 
   render() {
-
-    console.log(this.props);
 
     const {usersData, usersDataBackup, webData} = this.props;
 
