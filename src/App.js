@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import $ from "jquery";
-import { handleAjaxError, http, apiEndPoint } from "./utils/backendCalls";
+import { handleAjaxError, http, apiEndPoint, ajaxSetup } from "./utils/backendCalls";
 import { ToastContainer, toast } from "react-toastify";
 import ProtectedRoute from "./components/protectedRoute";
 import LoginPage from "./components/loginPage";
@@ -29,18 +29,11 @@ class App extends Component {
     activityCheckbox: "",
     errors: {},
   };
-  // preserve the initial state in a new object
-
-  
 
   componentDidMount() {
-    this.ajaxSetup();
+    ajaxSetup();
     this.props.loadDataFromServer();
   }
-
-  ajaxSetup = () => {
-    $.ajaxSetup({ cache: false });
-  };
 
   handleChangeForCheckbox = e => {
     const name = e.currentTarget.name;

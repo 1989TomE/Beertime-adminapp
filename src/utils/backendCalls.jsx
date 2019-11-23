@@ -3,6 +3,10 @@ import { toast } from "react-toastify";
 import {deepClone} from "../utils/functions";
 import {FETCH_DATA} from "../store/actions/fetchServerDataActions"
 
+export const ajaxSetup = () => {
+  $.ajaxSetup({ cache: false });
+};
+
 export const handleAjaxError = error => {
   if (error.status >= 400 && error.status <= 500) {
     toast.error(error.message || "Ups, někde se stala chyba");
