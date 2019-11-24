@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import InputField from "./inputField";
 
+
+
 class infoLine extends Component {
   filterUserProperties = () => {
     const { property } = this.props;
@@ -17,6 +19,7 @@ class infoLine extends Component {
   };
 
   render() {
+
     const {
       property,
       value,
@@ -47,4 +50,7 @@ class infoLine extends Component {
   }
 }
 
+
+
 export default infoLine;
+
