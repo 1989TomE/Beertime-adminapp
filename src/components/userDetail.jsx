@@ -4,6 +4,7 @@ import User from "./user";
 import Info from "./info";
 import Button from "./button";
 
+
 class UserDetail extends Component {
   render() {
     // prevent render on page refresh when usersData are empty and ajax is on the way
@@ -14,7 +15,6 @@ class UserDetail extends Component {
       usersDataBackup,
       errors,
       handleChangeForUserInputFields,
-      handleSaveChanges
     } = this.props;
 
     if (usersDataBackup.length !== 0) {
@@ -35,8 +35,9 @@ class UserDetail extends Component {
             />
             <div className="user_detail_bottom">
               <Button
-                handleEvent={() => handleSaveChanges(user.facebook_id)}
+                user={user}
                 label="Uložit změny"
+                name="save_changes_button"
               />
             </div>
           </div>
@@ -47,4 +48,5 @@ class UserDetail extends Component {
   }
 }
 
-export default UserDetail;
+
+export default (UserDetail);

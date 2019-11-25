@@ -28,6 +28,7 @@ const deepClone = object => {
 };
 
 const validate = (value, name) => {
+
   const schema = Joi.object({
     default: Joi.string().pattern(
       /^[a-zA-Z0-9áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ ]*$/
@@ -41,12 +42,14 @@ const validate = (value, name) => {
     drink_count: Joi.number()
       .allow("")
       .min(0)
-      .max(9)
+      .max(9),
+    email: Joi.string(),
+    password: Joi.string(),
   });
 
   // set default or named validation
   const getSchemaHelper = name => {
-    if (name === "rowsToDisplay" || name === "searchInput") {
+    if (name === "rowsToDisplay" || name === "searchInput" || name === "email" || name === "password") {
       return name;
     } else {
       return "default";
@@ -55,6 +58,7 @@ const validate = (value, name) => {
 
   const getSchema = getSchemaHelper(name);
   var result = schema.validate({ [getSchema]: value });
+
 
   if (result.error) {
     // dont show error message again if it has been shown already
@@ -74,13 +78,9 @@ const saveAndDisplayInputErrors = (error, name, errors) => {
   if (error !== null) {
     // only if error is not present yet
     if (!errors[name]) {
-      errors[name] = error;
       toast.error(error);
     }
-  } else {
-    delete errors[name];
   }
-  return errors;
 };
 
 export {

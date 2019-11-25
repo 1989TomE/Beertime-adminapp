@@ -25,7 +25,6 @@ class infoLine extends Component {
       value,
       facebook_id,
       errors,
-      handleChangeForUserInputFields
     } = this.props;
 
     if (this.filterUserProperties()) {
@@ -35,9 +34,6 @@ class infoLine extends Component {
           <InputField
             name={property}
             value={value}
-            handleChangeEvent={e =>
-              handleChangeForUserInputFields(e, facebook_id)
-            }
             errors={errors}
             facebook_id={facebook_id}
             type="text"

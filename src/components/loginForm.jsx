@@ -8,7 +8,6 @@ class LoginForm extends Component {
     const {
       email,
       password,
-      handleChangeForInput,
       errors,
       handleLogin,
       handleKeyPress
@@ -21,7 +20,6 @@ class LoginForm extends Component {
           name="email"
           type="text"
           value={email}
-          handleChangeEvent={handleChangeForInput}
           errors={errors}
           onKeyPress={handleKeyPress}
         />
@@ -31,12 +29,11 @@ class LoginForm extends Component {
           name="password"
           type="password"
           value={password}
-          handleChangeEvent={handleChangeForInput}
           errors={errors}
           onKeyPress={handleKeyPress}
         />
 
-        <Button handleEvent={handleLogin} label="Přihlásit se" />
+        <Button handleEvent={handleLogin} label="Přihlásit se" name="login_button" />
       </div>
     );
   }

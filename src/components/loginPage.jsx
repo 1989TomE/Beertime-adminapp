@@ -7,25 +7,14 @@ import { http, apiEndPoint } from "../utils/backendCalls";
 import $ from "jquery";
 
 class LoginPage extends Component {
-  state = {
-    email: "",
-    password: "",
-    errors: {}
-  };
-
-  handleChangeForInput = e => {
-    const name = e.currentTarget.name;
-    const value = e.currentTarget.value;
-    this.setState({ [name]: value });
-  };
 
   handleKeyPress = (e) => {
     if (e.charCode === 13) this.handleLogin();
   }
 
   handleLogin = async () => {
-    const email = this.state.email;
-    const password = this.state.password;
+    const email = this.props.email;
+    const password = this.props.password;
 
     //validation
     const schema = Joi.object({
@@ -63,14 +52,13 @@ class LoginPage extends Component {
   };
 
   render() {
-    const { password, email, errors } = this.state;
+    const { password, email, errors } = this.props;
     return (
       <div className="container">
         <Beertime />
         <LoginForm
           email={email}
           password={password}
-          handleChangeForInput={this.handleChangeForInput}
           errors={errors}
           handleLogin={this.handleLogin}
           handleKeyPress={this.handleKeyPress}

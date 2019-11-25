@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import {connect} from "react-redux";
 import { update_user_data } from "../store/actions/usersDataActions";
+import {handle_input} from "../store/actions/inputsActions";
+import PropTypes from 'prop-types';
 
 class InputField extends Component {
   displayClassName = (errors, name) => {
@@ -14,9 +16,9 @@ class InputField extends Component {
 
   getOnChangeHanlder = (e, name) => {
     if (name === "Fname" || name === "Lname") {
-      this.props.handleChangeForUserInputFields(e);
+      this.props.handle_change_user_inputs(e);
     } else {
-      this.props.handleChangeEvent(e);
+      this.props.handle_inputs(e);
     }
   }
 
@@ -43,7 +45,7 @@ class InputField extends Component {
   };
 
   render() {
-    const { name, errors, value, handleChangeEvent, handleChangeForUserInputFields, type , ...rest} = this.props;
+    const { name, errors, value, type} = this.props;
 
     return (
       <input
@@ -55,22 +57,22 @@ class InputField extends Component {
         name={name}
         disabled={this.getDisabled(name, value)}
         placeholder={this.getPlaceholder(name)}
-        {...rest}
       />
     );
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     usersData: state.usersData
-//   }
-// }
-
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const facebook_id = ownProps.facebook_id;
   return {
-    handleChangeForUserInputFields: e => {dispatch(update_user_data(e))}
+    handle_change_user_inputs: (e) => {dispatch(update_user_data(e, facebook_id))},
+    handle_inputs: (e) => {dispatch(handle_input(e))}
   }
 }
+
+InputField.propTypes = {
+  handle_change_user_inputs: PropTypes.func,
+  handle_inputs: PropTypes.func,
+};
 
 export default connect (null, mapDispatchToProps) (InputField);

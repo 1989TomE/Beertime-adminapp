@@ -168,7 +168,6 @@ class WebDataPage extends Component {
                   name="rowsToDisplay"
                   errors={errors}
                   value={rowsToDisplay}
-                  handleChangeEvent={handleChangeForInput}
                   schemaname="rowsToDisplay"
                   type="text"
                 />

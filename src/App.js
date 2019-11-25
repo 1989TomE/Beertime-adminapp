@@ -21,13 +21,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
   state = {
-    email: "",
-    password: "",
-    rowsToDisplay: 15,
-    searchInput: "",
     rowsToDisplayCheckbox: "checked",
     activityCheckbox: "",
-    errors: {},
   };
 
   componentDidMount() {
@@ -83,7 +78,7 @@ class App extends Component {
   };
 
   handleSaveChanges = async facebook_id => {
-    const usersData = this.state.usersData;
+    const usersData = this.props.usersData;
 
     const index = usersData.findIndex(user => user.facebook_id === facebook_id);
 
@@ -115,16 +110,11 @@ class App extends Component {
 
   render() {
 
-    const {usersData, usersDataBackup, webData} = this.props;
+    const {usersData, usersDataBackup, webData, usersDataInputErrors, inputs, inputsErrors} = this.props;
 
     const {
-      rowsToDisplay,
-      activityCheckbox,
       rowsToDisplayCheckbox,
-      errors,
-      searchInput,
-      email,
-      password
+      activityCheckbox,
     } = this.state;
 
     return (
@@ -137,10 +127,10 @@ class App extends Component {
             render={props => (
               <LoginPage
                 {...props}
-                value={email}
-                passwordValue={password}
-                errors={errors}
+                errors={inputsErrors}
                 handleLogin={this.handleLogin}
+                email={inputs.email}
+                password={inputs.password}
               />
             )}
           />
@@ -153,8 +143,8 @@ class App extends Component {
                 component={WebDataPage}
                 webData={webData}
                 handleChangeForInput={this.handleChangeForInput}
-                errors={errors}
-                rowsToDisplay={rowsToDisplay}
+                errors={inputsErrors}
+                rowsToDisplay={inputs.rowsToDisplay}
                 rowsToDisplayCheckbox={rowsToDisplayCheckbox}
                 activityCheckbox={activityCheckbox}
                 handleChangeForCheckbox={this.handleChangeForCheckbox}
@@ -168,9 +158,9 @@ class App extends Component {
                 {...props}
                 component={UsersPage}
                 usersData={usersData}
-                searchInput={searchInput}
+                searchInput={inputs.searchInput}
                 handleChangeForInput={this.handleChangeForInput}
-                errors={errors}
+                errors={inputsErrors}
               />
             )}
           />
@@ -182,7 +172,7 @@ class App extends Component {
                 component={UserDetail}
                 usersData={usersData}
                 usersDataBackup={usersDataBackup}
-                errors={errors}
+                errors={usersDataInputErrors}
                 handleChangeForUserInputFields={
                   this.handleChangeForUserInputFields
                 }
@@ -200,11 +190,16 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
+
   return {
-    usersData: state.usersData,
-    usersDataBackup: state.usersDataBackup,
+    usersData: state.usersData.usersData,
+    usersDataBackup: state.usersData.usersDataBackup,
     webData: state.webData,
+    usersDataInputErrors: state.usersDataInputErrors,
+    inputs: state.inputs,
+    inputsErrors: state.inputsErrors,
   }
+
 }
 
 const mapDispatchToProps = (dispatch) => {
