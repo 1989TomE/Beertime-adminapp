@@ -9,7 +9,6 @@ export const handle_input = (e) => {
 
     const error = validate(value, name);
 
-
     return {
         type: HANDLE_INPUT,
         payload: {
