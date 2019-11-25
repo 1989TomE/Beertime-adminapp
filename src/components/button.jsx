@@ -11,7 +11,6 @@ class Button extends Component {
 
   getOnCLickMethod = (e) => {
     const name = e.target.name;
-    console.log(this.props);
     if (name === "save_changes_button") this.props.handleSaveChanges();
     if (name === "login_button") this.props.handleEvent();
   }

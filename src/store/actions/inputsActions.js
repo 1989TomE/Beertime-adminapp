@@ -7,9 +7,6 @@ export const handle_input = (e) => {
     const name = e.target.name;
     const value = e.target.value;
 
-    console.log(name);
-
-
     const error = validate(value, name);
 
 
