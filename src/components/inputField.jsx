@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import {connect} from "react-redux";
-import { update_user_data } from "../store/actions/usersDataActions";
-import {handle_input} from "../store/actions/inputsActions";
-import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+import { handle_user_data_update } from "../store/actions/usersDataActions";
+import { handle_input } from "../store/actions/inputsActions";
+import PropTypes from "prop-types";
 
 class InputField extends Component {
   displayClassName = (errors, name) => {
@@ -16,11 +16,11 @@ class InputField extends Component {
 
   getOnChangeHanlder = (e, name) => {
     if (name === "Fname" || name === "Lname") {
-      this.props.handle_change_user_inputs(e);
+      this.props.handle_user_data_update(e);
     } else {
       this.props.handle_inputs(e);
     }
-  }
+  };
 
   getDisabled = (name, value) => {
     if (name === "Fname") return "";
@@ -45,7 +45,7 @@ class InputField extends Component {
   };
 
   render() {
-    const { name, errors, value, type} = this.props;
+    const { name, errors, value, type } = this.props;
 
     return (
       <input
@@ -53,7 +53,9 @@ class InputField extends Component {
         type={type}
         className={this.displayClassName(errors, name)}
         value={value}
-        onChange={(e) => {this.getOnChangeHanlder(e, name)}}
+        onChange={e => {
+          this.getOnChangeHanlder(e, name);
+        }}
         name={name}
         disabled={this.getDisabled(name, value)}
         placeholder={this.getPlaceholder(name)}
@@ -65,14 +67,18 @@ class InputField extends Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const facebook_id = ownProps.facebook_id;
   return {
-    handle_change_user_inputs: (e) => {dispatch(update_user_data(e, facebook_id))},
-    handle_inputs: (e) => {dispatch(handle_input(e))}
-  }
-}
+    handle_user_data_update: e => {
+      dispatch(handle_user_data_update(e, facebook_id));
+    },
+    handle_inputs: e => {
+      dispatch(handle_input(e));
+    }
+  };
+};
 
 InputField.propTypes = {
   handle_change_user_inputs: PropTypes.func,
-  handle_inputs: PropTypes.func,
+  handle_inputs: PropTypes.func
 };
 
-export default connect (null, mapDispatchToProps) (InputField);
+export default connect(null, mapDispatchToProps)(InputField);
