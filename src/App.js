@@ -19,11 +19,6 @@ import { connect } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
-  state = {
-    rowsToDisplayCheckbox: "checked",
-    activityCheckbox: ""
-  };
-
   componentDidMount() {
     ajaxSetup();
     this.props.loadDataFromServer();
