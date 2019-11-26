@@ -207,6 +207,10 @@ class WebDataPage extends Component {
 
 const mapStateToProps = state => {
   return {
+    checkboxes: state.checkboxes,
+    webData: state.webData,
+    errors: state.inputsErrors,
+    rowsToDisplay: state.inputs.rowsToDisplay,
     checkboxes: state.checkboxes
   };
 };

@@ -144,16 +144,7 @@ class App extends Component {
           <Route
             path="/webdata"
             render={props => (
-              <ProtectedRoute
-                {...props}
-                component={WebDataPage}
-                webData={webData}
-                handleChangeForInput={this.handleChangeForInput}
-                errors={inputsErrors}
-                rowsToDisplay={inputs.rowsToDisplay}
-                rowsToDisplayCheckbox={rowsToDisplayCheckbox}
-                activityCheckbox={activityCheckbox}
-              />
+              <ProtectedRoute {...props} component={WebDataPage} />
             )}
           />
           <Route
