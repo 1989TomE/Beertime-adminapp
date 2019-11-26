@@ -198,7 +198,7 @@ class WebDataPage extends Component {
               />
             </div>
           </div>
-          {dataVisible && <DataTable webData={webData} errors={errors} />}
+          {dataVisible && <DataTable />}
         </div>
       </div>
     );
