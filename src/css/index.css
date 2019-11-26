@@ -275,8 +275,8 @@ canvas {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-input[type=text],
-input[type=password] {
+input[type="text"],
+input[type="password"] {
   /* Remove First */
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -336,6 +336,7 @@ input[type=password] {
   flex: 0;
   height: 60px;
   padding: 10px;
+  margin-top: 3px;
 }
 .error {
   border: 2px solid red;
@@ -353,6 +354,7 @@ input[type=password] {
   padding: 5px 20px;
   cursor: pointer;
   font-weight: 700;
+  margin: 3px 0px 0px 0px;
 }
 .button2 {
   background-color: #e6e6e6;
@@ -367,6 +369,7 @@ input[type=password] {
   padding: 5px 20px;
   cursor: pointer;
   font-weight: 700;
+  margin: 3px 0px 0px 0px;
   color: #3c3c3c;
 }
 .users {
