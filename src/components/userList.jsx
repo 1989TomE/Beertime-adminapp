@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import User from "./user";
 import { searchForName } from "../utils/functions";
+import { connect } from "react-redux";
 
 class UserTable extends Component {
   filterUsers = () => {
@@ -44,4 +45,12 @@ class UserTable extends Component {
   }
 }
 
-export default UserTable;
+const mapStateToProps = state => {
+  return {
+    usersData: state.usersDataHolder.usersData,
+    errors: state.inputsErrors,
+    searchInput: state.inputs.searchInput
+  };
+};
+
+export default connect(mapStateToProps, null)(UserTable);

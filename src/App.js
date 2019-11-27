@@ -19,13 +19,7 @@ class App extends Component {
   }
 
   render() {
-    const {
-      usersData,
-      usersDataBackup,
-      usersDataInputErrors,
-      inputs,
-      inputsErrors
-    } = this.props;
+    const { usersData, usersDataBackup, usersDataInputErrors } = this.props;
 
     return (
       <React.Fragment>
@@ -42,14 +36,7 @@ class App extends Component {
           <Route
             path="/users"
             render={props => (
-              <ProtectedRoute
-                {...props}
-                component={UsersPage}
-                usersData={usersData}
-                searchInput={inputs.searchInput}
-                handleChangeForInput={this.handleChangeForInput}
-                errors={inputsErrors}
-              />
+              <ProtectedRoute {...props} component={UsersPage} />
             )}
           />
           <Route
@@ -79,8 +66,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    usersData: state.usersData.usersData,
-    usersDataBackup: state.usersData.usersDataBackup,
+    usersData: state.usersDataHolder.usersData,
+    usersDataBackup: state.usersDataHolder.usersDataBackup,
     webData: state.webData,
     usersDataInputErrors: state.usersDataInputErrors,
     inputs: state.inputs,

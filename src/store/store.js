@@ -8,7 +8,7 @@ import checkboxesReducer from "./reducers/checkboxesReducer";
 import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
-  usersData: usersDataReducer,
+  usersDataHolder: usersDataReducer,
   webData: webDataReducer,
   usersDataInputErrors: usersDataInputErrorsReducer,
   inputs: inputsReducer,
