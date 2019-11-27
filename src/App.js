@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import $ from "jquery";
-import {
-  handleAjaxError,
-  http,
-  apiEndPoint,
-  ajaxSetup
-} from "./utils/backendCalls";
-import { ToastContainer, toast } from "react-toastify";
+import { ajaxSetup } from "./utils/backendCalls";
+import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./components/protectedRoute";
 import LoginPage from "./components/loginPage";
 import NotFoundPage from "./components/notFoundPage";
@@ -38,19 +32,7 @@ class App extends Component {
         <ToastContainer />
         <Switch>
           <Route path="/not-found" component={NotFoundPage} />
-          <Route
-            path="/login"
-            render={props => (
-              <LoginPage
-                {...props}
-                errors={inputsErrors}
-                handleLogin={this.handleLogin}
-                email={inputs.email}
-                password={inputs.password}
-              />
-            )}
-          />
-
+          <Route path="/login" render={props => <LoginPage {...props} />} />
           <Route
             path="/webdata"
             render={props => (
