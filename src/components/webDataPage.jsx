@@ -210,8 +210,7 @@ const mapStateToProps = state => {
     checkboxes: state.checkboxes,
     webData: state.webData,
     errors: state.inputsErrors,
-    rowsToDisplay: state.inputs.rowsToDisplay,
-    checkboxes: state.checkboxes
+    rowsToDisplay: state.inputs.rowsToDisplay
   };
 };
 

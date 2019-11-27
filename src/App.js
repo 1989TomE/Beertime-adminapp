@@ -46,7 +46,6 @@ class App extends Component {
               <ProtectedRoute {...props} component={UserDetail} />
             )}
           />
-
           <Redirect exact from="/" to="/webdata" />
           <Redirect to="/not-found" />
         </Switch>
