@@ -14,8 +14,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
   componentDidMount() {
+    const { loadDataFromServer } = this.props;
     ajaxSetup();
-    this.props.loadDataFromServer();
+    loadDataFromServer();
   }
 
   render() {
@@ -42,17 +43,7 @@ class App extends Component {
           <Route
             path="/userdetail/:id"
             render={props => (
-              <ProtectedRoute
-                {...props}
-                component={UserDetail}
-                usersData={usersData}
-                usersDataBackup={usersDataBackup}
-                errors={usersDataInputErrors}
-                handleChangeForUserInputFields={
-                  this.handleChangeForUserInputFields
-                }
-                handleSaveChanges={this.handleSaveChanges}
-              />
+              <ProtectedRoute {...props} component={UserDetail} />
             )}
           />
 
@@ -64,17 +55,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    usersData: state.usersDataHolder.usersData,
-    usersDataBackup: state.usersDataHolder.usersDataBackup,
-    webData: state.webData,
-    usersDataInputErrors: state.usersDataInputErrors,
-    inputs: state.inputs,
-    inputsErrors: state.inputsErrors
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     loadDataFromServer: () => {
@@ -83,4 +63,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
