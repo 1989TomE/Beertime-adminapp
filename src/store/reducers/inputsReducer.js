@@ -2,7 +2,7 @@ import { HANDLE_INPUT } from "../actions/inputsActions";
 
 const init = {
   rowsToDisplay: 15,
-  searchInput: "bour",
+  searchInput: "",
   email: "",
   password: ""
 };

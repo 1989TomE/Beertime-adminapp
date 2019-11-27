@@ -20,8 +20,6 @@ class App extends Component {
   }
 
   render() {
-    const { usersData, usersDataBackup, usersDataInputErrors } = this.props;
-
     return (
       <React.Fragment>
         <ToastContainer />
