@@ -9,8 +9,10 @@ import $ from "jquery";
 class LoginPage extends Component {
 
   handleKeyPress = (e) => {
-    if (e.charCode === 13) this.handleLogin();
+  if (e.charCode === 13) this.handleLogin();
   }
+
+
 
   handleLogin = async () => {
     const email = this.props.email;

@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import $ from "jquery";
-import { handleAjaxError, http, apiEndPoint, ajaxSetup } from "./utils/backendCalls";
+import {
+  handleAjaxError,
+  http,
+  apiEndPoint,
+  ajaxSetup
+} from "./utils/backendCalls";
 import { ToastContainer, toast } from "react-toastify";
 import ProtectedRoute from "./components/protectedRoute";
 import LoginPage from "./components/loginPage";
@@ -10,7 +15,7 @@ import UserDetail from "./components/userDetail";
 import WebDataPage from "./components/webDataPage";
 import UsersPage from "./components/usersPage";
 import { fetch_data } from "./store/actions/fetchServerDataActions";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import {
   deepClone,
   validate,
@@ -18,11 +23,10 @@ import {
 } from "./utils/functions";
 import "react-toastify/dist/ReactToastify.css";
 
-
 class App extends Component {
   state = {
     rowsToDisplayCheckbox: "checked",
-    activityCheckbox: "",
+    activityCheckbox: ""
   };
 
   componentDidMount() {
@@ -40,7 +44,6 @@ class App extends Component {
 
   // for any input field
   handleChangeForInput = e => {
-
     const name = e.currentTarget.name;
     const value = e.currentTarget.value;
 
@@ -109,13 +112,16 @@ class App extends Component {
   };
 
   render() {
-
-    const {usersData, usersDataBackup, webData, usersDataInputErrors, inputs, inputsErrors} = this.props;
-
     const {
-      rowsToDisplayCheckbox,
-      activityCheckbox,
-    } = this.state;
+      usersData,
+      usersDataBackup,
+      webData,
+      usersDataInputErrors,
+      inputs,
+      inputsErrors
+    } = this.props;
+
+    const { rowsToDisplayCheckbox, activityCheckbox } = this.state;
 
     return (
       <React.Fragment>
@@ -190,22 +196,22 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-
   return {
     usersData: state.usersData.usersData,
     usersDataBackup: state.usersData.usersDataBackup,
     webData: state.webData,
     usersDataInputErrors: state.usersDataInputErrors,
     inputs: state.inputs,
-    inputsErrors: state.inputsErrors,
-  }
+    inputsErrors: state.inputsErrors
+  };
+};
 
-}
-
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    loadDataFromServer: () => {dispatch(fetch_data)}
-  }
-}
+    loadDataFromServer: () => {
+      dispatch(fetch_data);
+    }
+  };
+};
 
-export default connect (mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
