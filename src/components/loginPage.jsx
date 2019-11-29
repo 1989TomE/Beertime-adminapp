@@ -1,56 +1,11 @@
 import React, { Component } from "react";
-import Joi from "@hapi/joi";
-import { toast } from "react-toastify";
 import Beertime from "./beertime";
 import LoginForm from "./loginForm";
-import { http, apiEndPoint } from "../utils/backendCalls";
-import $ from "jquery";
+import { connect } from "react-redux";
 
 class LoginPage extends Component {
-
-  handleKeyPress = (e) => {
-  if (e.charCode === 13) this.handleLogin();
-  }
-
-
-
-  handleLogin = async () => {
-    const email = this.props.email;
-    const password = this.props.password;
-
-    //validation
-    const schema = Joi.object({
-      email: Joi.string().email({
-        minDomainSegments: 2,
-        tlds: { allow: ["com", "net", "cz", "eu"] }
-      }),
-      password: Joi.string().min(1)
-    });
-    const errors = {};
-    const result = schema.validate({ email: email, password: password });
-
-    // error in input
-    if (result.error) {
-      const field = result.error.details[0].path[0];
-      const errorMessage = result.error.details[0].message;
-      errors[field] = errorMessage;
-      toast.error(errorMessage);
-      this.setState({ errors });
-    } else {
-      //send ajax to server and validate there
-      let data = await http.post(apiEndPoint + "login.php", {
-        email: email,
-        password: password
-      });
-
-      data = $.parseJSON(data);
-      if (data.response === "fail") {
-        toast.error("Nesprávný email nebo heslo");
-      } else if ((data.response = "success")) {
-        localStorage.setItem("token", data.jwt);
-        window.location.href = "/webData";
-      }
-    }
+  handleKeyPress = e => {
+    if (e.charCode === 13) this.handle_login();
   };
 
   render() {
@@ -62,7 +17,7 @@ class LoginPage extends Component {
           email={email}
           password={password}
           errors={errors}
-          handleLogin={this.handleLogin}
+          handleLogin={this.props.handle_login}
           handleKeyPress={this.handleKeyPress}
         />
       </div>
@@ -70,4 +25,12 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+const mapsTateToProps = state => {
+  return {
+    errors: state.inputsErrors,
+    email: state.inputs.email,
+    password: state.inputs.password
+  };
+};
+
+export default connect(mapsTateToProps, null)(LoginPage);
