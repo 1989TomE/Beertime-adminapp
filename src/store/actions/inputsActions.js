@@ -17,3 +17,26 @@ export const handle_input = e => {
     }
   };
 };
+
+export const SAVE_INPUT_ERROR = "SAVE_INPUT_ERROR";
+
+export const save_input_error = (name, error) => {
+  return {
+    type: SAVE_INPUT_ERROR,
+    payload: {
+      name: name,
+      error: error
+    }
+  };
+};
+
+export const CLEAR_INPUT_ERROR = "CLEAR_INPUT_ERROR";
+
+export const clear_input_error = name => {
+  return {
+    type: CLEAR_INPUT_ERROR,
+    payload: {
+      name: name
+    }
+  };
+};
