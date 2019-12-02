@@ -5,6 +5,7 @@ import usersDataInputErrorsReducer from "./reducers/usersDataInputErrorsReducer"
 import inputsReducer from "./reducers/inputsReducer";
 import inputsErrorsReducer from "./reducers/inputErrorsReducer";
 import checkboxesReducer from "./reducers/checkboxesReducer";
+import loaderReducer from "./reducers/loaderReducer";
 import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   usersDataInputErrors: usersDataInputErrorsReducer,
   inputs: inputsReducer,
   inputsErrors: inputsErrorsReducer,
-  checkboxes: checkboxesReducer
+  checkboxes: checkboxesReducer,
+  loader: loaderReducer
 });
 
 const middleware = [thunk];
@@ -21,8 +23,8 @@ const middleware = [thunk];
 const store = createStore(
   rootReducer,
   compose(
-    applyMiddleware(...middleware)
-    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    applyMiddleware(...middleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 

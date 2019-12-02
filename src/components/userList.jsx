@@ -23,10 +23,11 @@ class UserTable extends Component {
   render() {
     // get users with active status to top
     const usersDataFiltered = this.filterUsers();
+    const { loader } = this.props;
 
     return (
       <div className="users_body">
-        {Object.keys(usersDataFiltered).length === 0 && (
+        {Object.keys(usersDataFiltered).length === 0 && loader === false && (
           <div className="noUsers">
             Vyhledávání neodpovídají žádní uživatelé
           </div>
@@ -49,7 +50,8 @@ const mapStateToProps = state => {
   return {
     usersData: state.usersDataHolder.usersData,
     errors: state.inputsErrors,
-    searchInput: state.inputs.searchInput
+    searchInput: state.inputs.searchInput,
+    loader: state.loader
   };
 };
 

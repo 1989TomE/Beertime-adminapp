@@ -6,16 +6,27 @@ import {
   SAVE_CHANGES_SUCCESS,
   SAVE_CHANGES_FAIL
 } from "../store/actions/usersDataActions";
+import { hide_loader, show_loader } from "./../store/actions/loaderActions";
+import store from "../store/store";
 
 export const ajaxSetup = () => {
   $.ajaxSetup({ cache: false });
+
+  $(document).ajaxStart(() => {
+    store.dispatch(show_loader());
+  });
+
+  $(document).ajaxStop(() => {
+    setTimeout(() => {
+      store.dispatch(hide_loader());
+    }, 500);
+  });
 };
 
 export const handleAjaxError = error => {
   if (error.status >= 400 && error.status <= 500) {
     toast.error(error.message || "Ups, někde se stala chyba");
   } else {
-    //console.log(error);
     toast.error("Neočekáváná chyba při spojení se serverem");
   }
 };
@@ -35,10 +46,9 @@ export const fetchServerData = async dispatch => {
       limit: 100,
       token: token
     });
-
     const data = JSON.parse(response);
-
     const usersDataBackup = deepClone(data.usersData);
+
     dispatch({
       type: FETCH_DATA,
       payload: {
@@ -53,7 +63,6 @@ export const fetchServerData = async dispatch => {
       localStorage.clear();
       window.location.reload(false);
     }
-    dispatch({ type: "default" });
   }
 };
 

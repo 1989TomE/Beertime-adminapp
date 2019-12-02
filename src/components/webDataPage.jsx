@@ -5,6 +5,7 @@ import DataTable from "./dataTable";
 import InputField from "./inputField";
 import NavBar from "./navBar";
 import Button from "./button";
+import Loader from "./loader";
 import Chart from "chart.js";
 import { connect } from "react-redux";
 
@@ -147,8 +148,10 @@ class WebDataPage extends Component {
   }
 
   render() {
-    const { rowsToDisplay, webData, errors } = this.props;
+    const { rowsToDisplay, webData, errors, loader } = this.props;
     const { dataVisible, dataVisibleButtonLable } = this.state;
+
+    console.log(loader);
 
     return (
       <div className="main">
@@ -183,8 +186,9 @@ class WebDataPage extends Component {
                 />
               </div>
             </div>
+
             <div className="web_data_graph" id="web_data_graph">
-              {webData.length === 0 && (
+              {webData.length === 0 && loader === false && (
                 <div className="noData">Graf nelze vykreslit</div>
               )}
             </div>
@@ -210,7 +214,8 @@ const mapStateToProps = state => {
     checkboxes: state.checkboxes,
     webData: state.webData,
     errors: state.inputsErrors,
-    rowsToDisplay: state.inputs.rowsToDisplay
+    rowsToDisplay: state.inputs.rowsToDisplay,
+    loader: state.loader
   };
 };
 
