@@ -5,7 +5,9 @@ import DataTable from "./dataTable";
 import InputField from "./inputField";
 import NavBar from "./navBar";
 import Button from "./button";
+import Loader from "./loader";
 import Chart from "chart.js";
+import { connect } from "react-redux";
 
 class WebDataPage extends Component {
   state = {
@@ -55,7 +57,7 @@ class WebDataPage extends Component {
   };
 
   getGraphDatasets = () => {
-    const { rowsToDisplayCheckbox, activityCheckbox } = this.props;
+    const { rowsToDisplayCheckbox, activityCheckbox } = this.props.checkboxes;
     const datasets = [];
 
     const webData = this.getWebData();
@@ -146,16 +148,10 @@ class WebDataPage extends Component {
   }
 
   render() {
-    const {
-      rowsToDisplay,
-      handleChangeForInput,
-      rowsToDisplayCheckbox,
-      activityCheckbox,
-      webData,
-      handleChangeForCheckbox,
-      errors
-    } = this.props;
+    const { rowsToDisplay, webData, errors, loader } = this.props;
     const { dataVisible, dataVisibleButtonLable } = this.state;
+
+    console.log(loader);
 
     return (
       <div className="main">
@@ -168,7 +164,6 @@ class WebDataPage extends Component {
                   name="rowsToDisplay"
                   errors={errors}
                   value={rowsToDisplay}
-                  handleChangeEvent={handleChangeForInput}
                   schemaname="rowsToDisplay"
                   type="text"
                 />
@@ -176,8 +171,6 @@ class WebDataPage extends Component {
               </div>
               <div className="web_data_head_input_holder">
                 <Checkbox
-                  handleChangeForCheckbox={handleChangeForCheckbox}
-                  checked={rowsToDisplayCheckbox}
                   name="rowsToDisplayCheckbox"
                   label="Počet uživatelů"
                   checkmark="checkmark_alt"
@@ -186,8 +179,6 @@ class WebDataPage extends Component {
               </div>
               <div className="web_data_head_input_holder">
                 <Checkbox
-                  handleChangeForCheckbox={handleChangeForCheckbox}
-                  checked={activityCheckbox}
                   name="activityCheckbox"
                   label="Aktivita uživatelů"
                   checkmark="checkmark"
@@ -195,21 +186,37 @@ class WebDataPage extends Component {
                 />
               </div>
             </div>
-            <div className="web_data_graph" id="web_data_graph"></div>
+
+            <div className="web_data_graph" id="web_data_graph">
+              {webData.length === 0 && loader === false && (
+                <div className="noData">Graf nelze vykreslit</div>
+              )}
+            </div>
             <canvas id="myChart"></canvas>
             <div className="web_data_toggle_button_holder">
               <Button
                 handleEvent={this.handleDataToggle}
                 label={dataVisibleButtonLable}
                 className="button2"
+                name="webDataToggle"
               />
             </div>
           </div>
-          {dataVisible && <DataTable webData={webData} errors={errors} />}
+          {dataVisible && <DataTable />}
         </div>
       </div>
     );
   }
 }
 
-export default WebDataPage;
+const mapStateToProps = state => {
+  return {
+    checkboxes: state.checkboxes,
+    webData: state.webData,
+    errors: state.inputsErrors,
+    rowsToDisplay: state.inputs.rowsToDisplay,
+    loader: state.loader
+  };
+};
+
+export default connect(mapStateToProps, null)(WebDataPage);

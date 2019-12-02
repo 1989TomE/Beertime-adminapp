@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import InputField from "./inputField";
 
+
+
 class infoLine extends Component {
   filterUserProperties = () => {
     const { property } = this.props;
@@ -17,12 +19,12 @@ class infoLine extends Component {
   };
 
   render() {
+
     const {
       property,
       value,
       facebook_id,
       errors,
-      handleChangeForUserInputFields
     } = this.props;
 
     if (this.filterUserProperties()) {
@@ -32,9 +34,6 @@ class infoLine extends Component {
           <InputField
             name={property}
             value={value}
-            handleChangeEvent={e =>
-              handleChangeForUserInputFields(e, facebook_id)
-            }
             errors={errors}
             facebook_id={facebook_id}
             type="text"
@@ -47,4 +46,7 @@ class infoLine extends Component {
   }
 }
 
+
+
 export default infoLine;
+

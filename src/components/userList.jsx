@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import User from "./user";
 import { searchForName } from "../utils/functions";
+import { connect } from "react-redux";
 
 class UserTable extends Component {
   filterUsers = () => {
@@ -22,10 +23,11 @@ class UserTable extends Component {
   render() {
     // get users with active status to top
     const usersDataFiltered = this.filterUsers();
+    const { loader } = this.props;
 
     return (
       <div className="users_body">
-        {Object.keys(usersDataFiltered).length === 0 && (
+        {Object.keys(usersDataFiltered).length === 0 && loader === false && (
           <div className="noUsers">
             Vyhledávání neodpovídají žádní uživatelé
           </div>
@@ -44,4 +46,13 @@ class UserTable extends Component {
   }
 }
 
-export default UserTable;
+const mapStateToProps = state => {
+  return {
+    usersData: state.usersDataHolder.usersData,
+    errors: state.inputsErrors,
+    searchInput: state.inputs.searchInput,
+    loader: state.loader
+  };
+};
+
+export default connect(mapStateToProps, null)(UserTable);

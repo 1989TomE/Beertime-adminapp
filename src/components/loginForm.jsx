@@ -3,14 +3,14 @@ import InputField from "./inputField";
 import Button from "./button";
 
 class LoginForm extends Component {
-  state = {};
+
   render() {
     const {
       email,
       password,
-      handleChangeForInput,
       errors,
-      handleLogin
+      handleLogin,
+      handleKeyPress
     } = this.props;
     return (
       <div className="login_form">
@@ -20,8 +20,8 @@ class LoginForm extends Component {
           name="email"
           type="text"
           value={email}
-          handleChangeEvent={handleChangeForInput}
           errors={errors}
+          onKeyPress={handleKeyPress}
         />
 
         <InputField
@@ -29,11 +29,11 @@ class LoginForm extends Component {
           name="password"
           type="password"
           value={password}
-          handleChangeEvent={handleChangeForInput}
           errors={errors}
+          onKeyPress={handleKeyPress}
         />
 
-        <Button handleEvent={handleLogin} label="Přihlásit se" />
+        <Button handleEvent={handleLogin} label="Přihlásit se" name="login_button" />
       </div>
     );
   }

@@ -14,7 +14,7 @@ class Info extends Component {
                 value={user[key]}
                 facebook_id={user.facebook_id}
                 errors={errors}
-                handleChangeForUserInputFields={handleChangeForUserInputFields}
+                // handleChangeForUserInputFields={handleChangeForUserInputFields}
               />
             </li>
           ))}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { Auth } from "../utils/auth";
+import { isLoggedIn } from "../utils/auth";
 
 class ProtectedRoute extends Component {
   render() {
@@ -9,7 +9,7 @@ class ProtectedRoute extends Component {
       <Route
         {...rest}
         render={props =>
-          Auth.isAuthenticated() === true ? (
+          isLoggedIn() === true ? (
             <ComponentName {...props} {...rest} />
           ) : (
             <Redirect to="/login" />

@@ -15,6 +15,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 120px;
 }
 .navbar .icon_image_holder .navbar_logo_image {
   height: 18px;
@@ -92,6 +93,7 @@ canvas {
   margin: 20px 0px 0px 0px;
 }
 .web_data {
+  position: relative;
   padding: 10px 15px 10px 15px;
   margin: 20px 20px 20px 20px;
   background-color: #fcfcfc;
@@ -136,6 +138,12 @@ canvas {
   align-items: center;
   padding: 3px 5px 3px 5px;
   width: 150px;
+}
+.noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 @media only screen and (max-width: 480px) {
   .web_data {
@@ -269,8 +277,8 @@ canvas {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-input[type=text],
-input[type=password] {
+input[type="text"],
+input[type="password"] {
   /* Remove First */
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -330,6 +338,7 @@ input[type=password] {
   flex: 0;
   height: 60px;
   padding: 10px;
+  margin-top: 3px;
 }
 .error {
   border: 2px solid red;
@@ -347,6 +356,7 @@ input[type=password] {
   padding: 5px 20px;
   cursor: pointer;
   font-weight: 700;
+  margin: 3px 0px 0px 0px;
 }
 .button2 {
   background-color: #e6e6e6;
@@ -361,9 +371,11 @@ input[type=password] {
   padding: 5px 20px;
   cursor: pointer;
   font-weight: 700;
+  margin: 3px 0px 0px 0px;
   color: #3c3c3c;
 }
 .users {
+  position: relative;
   padding: 10px 15px 10px 15px;
   margin: 20px 20px 20px 20px;
   background-color: #fcfcfc;
@@ -634,66 +646,32 @@ body {
   font-size: 14px;
   font-weight: 700;
 }
-@keyframes spinner_animation {
-  0% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  50% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0;
-  }
-}
 .loader_wrapper {
-  margin-top: 20px;
-  display: none;
+  width: 22px;
+  height: 22px;
+  border-top: 3px solid #fbb03b;
+  border-right: 3px solid #fbb03b;
+  border-bottom: 3px solid transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: spinner_animation 1.2s linear infinite;
 }
-.loader_wrapper .loader {
-  height: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.loader_wrapper_white {
+  width: 22px;
+  height: 22px;
+  border-top: 3px solid #fbb03b;
+  border-right: 3px solid #fbb03b;
+  border-bottom: 3px solid transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: spinner_animation 1.2s linear infinite;
+  border-top: 3px solid #fcfcfc;
+  border-right: 3px solid #fcfcfc;
 }
-.loader_wrapper .loader .bounce_container {
-  margin: 0px 3px 0px 3px;
-}
-.loader_wrapper .loader .bounce_container .bounce {
-  opacity: 0;
-  width: 10px;
-  height: 10px;
-  background-color: #3c3c3c;
-  border-radius: 100%;
-  animation-name: spinner_animation;
-  animation-delay: 0s;
-  animation-direction: normal;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  border: 0 none;
-}
-.loader_wrapper .loader .bounce_container .bounce1 {
-  animation-delay: 0s;
-}
-.loader_wrapper .loader .bounce_container .bounce2 {
-  animation-delay: 0.2s;
-}
-.loader_wrapper .loader .bounce_container .bounce3 {
-  animation-delay: 0.4s;
-}
-.loader_wrapper .loader .bounce_container .bounce4 {
-  animation-delay: 0.6s;
-}
-.loader_wrapper .loader .bounce_container .bounce5 {
-  animation-delay: 0.8s;
-}
-.loader_wrapper_none {
-  display: none;
+@keyframes spinner_animation {
+  to {
+    transform: rotate(360deg);
+  }
 }
 .login_form {
   display: flex;
@@ -743,8 +721,11 @@ body {
   text-align: center;
   color: white;
 }
-.beertime .beertime_logo {
+.beertime .logo_wrapper {
   margin-top: 20px;
+  height: 44px;
+}
+.beertime .logo_wrapper .beertime_logo {
   height: 40px;
 }
 .beertime_android {

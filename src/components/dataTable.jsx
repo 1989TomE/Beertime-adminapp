@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { formatTimestamp } from "../utils/functions";
+import { connect } from "react-redux";
 
 class DataTable extends Component {
   shouldComponentUpdate(nextProps) {
@@ -35,4 +36,11 @@ class DataTable extends Component {
   }
 }
 
-export default DataTable;
+const mapToStateProps = state => {
+  return {
+    webData: state.webData,
+    errors: state.errors
+  };
+};
+
+export default connect(mapToStateProps, null)(DataTable);

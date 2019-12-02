@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { handle_input } from "../store/actions/inputsActions";
 
 class SearchBox extends Component {
   getClassName = errors => {
@@ -7,12 +9,7 @@ class SearchBox extends Component {
   };
 
   render() {
-    const {
-      searchInput,
-      handleChangeForInput,
-      errors,
-      schemaname
-    } = this.props;
+    const { searchInput, errors, schemaname } = this.props;
     return (
       <div className={this.getClassName(errors)}>
         <img
@@ -26,7 +23,7 @@ class SearchBox extends Component {
           className="searchBoxInput"
           id="searchBoxInput"
           value={searchInput}
-          onChange={handleChangeForInput}
+          onChange={e => this.props.handle_change(e)}
           name="searchInput"
           schemaname={schemaname}
         ></input>
@@ -35,4 +32,19 @@ class SearchBox extends Component {
   }
 }
 
-export default SearchBox;
+const mapStateToProps = state => {
+  return {
+    searchInput: state.inputs.searchInput,
+    errors: state.inputsErrors
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handle_change: e => {
+      dispatch(handle_input(e));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);

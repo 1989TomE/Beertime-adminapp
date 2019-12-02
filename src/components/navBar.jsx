@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import { Auth } from "../utils/auth";
+import { connect } from "react-redux";
+import Loader from "./loader";
 
 class NavBar extends Component {
   handleClick = e => {
@@ -9,16 +10,25 @@ class NavBar extends Component {
     window.location.href = "/login";
   };
 
+  renderLogoOrLoader = () => {
+    const { loader } = this.props;
+    return loader ? (
+      <Loader className="loader_wrapper" />
+    ) : (
+      <img
+        src={require("../icons/text_logo.png")}
+        alt=""
+        className="navbar_logo_image"
+      />
+    );
+
+    // return <Loader />;
+  };
+
   render() {
     return (
       <div className="navbar">
-        <div className="icon_image_holder">
-          <img
-            src={require("../icons/text_logo.png")}
-            alt=""
-            className="navbar_logo_image"
-          />
-        </div>
+        <div className="icon_image_holder">{this.renderLogoOrLoader()}</div>
         <div className="navbar_links_a">
           <NavLink to="/webdata" className="navbar_link_a">
             Data
@@ -43,4 +53,10 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+const mapStateToProps = state => {
+  return {
+    loader: state.loader
+  };
+};
+
+export default connect(mapStateToProps, null)(NavBar);
