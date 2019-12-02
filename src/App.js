@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 class App extends Component {
   componentDidMount() {
     const { loadDataFromServer } = this.props;
+
     ajaxSetup();
     loadDataFromServer();
   }
