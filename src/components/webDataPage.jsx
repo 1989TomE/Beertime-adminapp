@@ -151,8 +151,6 @@ class WebDataPage extends Component {
     const { rowsToDisplay, webData, errors, loader } = this.props;
     const { dataVisible, dataVisibleButtonLable } = this.state;
 
-    console.log(loader);
-
     return (
       <div className="main">
         <NavBar />
