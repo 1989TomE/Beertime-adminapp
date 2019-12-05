@@ -2,35 +2,33 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handle_input } from "../store/actions/inputsActions";
 
-class SearchBox extends Component {
-  getClassName = errors => {
+const SearchBox = props => {
+  const getClassName = errors => {
     if (errors.searchInput) return "searchBoxContainer error";
     else return "searchBoxContainer";
   };
 
-  render() {
-    const { searchInput, errors, schemaname } = this.props;
-    return (
-      <div className={this.getClassName(errors)}>
-        <img
-          src={require("../icons/search_orange.png")}
-          alt=""
-          className="searchBoxIcon"
-        ></img>
-        <input
-          type="text"
-          placeholder="Vyhledej uživatele"
-          className="searchBoxInput"
-          id="searchBoxInput"
-          value={searchInput}
-          onChange={e => this.props.handle_change(e)}
-          name="searchInput"
-          schemaname={schemaname}
-        ></input>
-      </div>
-    );
-  }
-}
+  const { searchInput, errors, schemaname } = props;
+  return (
+    <div className={getClassName(errors)}>
+      <img
+        src={require("../icons/search_orange.png")}
+        alt=""
+        className="searchBoxIcon"
+      ></img>
+      <input
+        type="text"
+        placeholder="Vyhledej uživatele"
+        className="searchBoxInput"
+        id="searchBoxInput"
+        value={searchInput}
+        onChange={e => props.handle_change(e)}
+        name="searchInput"
+        schemaname={schemaname}
+      ></input>
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   return {

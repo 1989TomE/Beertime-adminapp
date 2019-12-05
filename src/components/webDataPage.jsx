@@ -5,7 +5,6 @@ import DataTable from "./dataTable";
 import InputField from "./inputField";
 import NavBar from "./navBar";
 import Button from "./button";
-import Loader from "./loader";
 import Chart from "chart.js";
 import { connect } from "react-redux";
 
