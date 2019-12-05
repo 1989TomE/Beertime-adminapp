@@ -192,7 +192,7 @@ class WebDataPage extends Component {
             <canvas id="myChart"></canvas>
             <div className="web_data_toggle_button_holder">
               <Button
-                handleEvent={this.handleDataToggle}
+                handleClick={this.handleDataToggle}
                 label={dataVisibleButtonLable}
                 className="button2"
                 name="webDataToggle"

@@ -4,6 +4,7 @@ import User from "./user";
 import Info from "./info";
 import Button from "./button";
 import { connect } from "react-redux";
+import { save_changes } from "../store/actions/usersDataActions";
 
 const UserDetail = props => {
   const { match, usersData, usersDataBackup, errors } = props;
@@ -14,6 +15,11 @@ const UserDetail = props => {
     );
     const user = usersData.find(user => user.facebook_id === match.params.id);
 
+    const getDisabled = () => {
+      const { errors } = props;
+      return Object.keys(errors).length > 0 ? true : false;
+    };
+
     return (
       <div className="main">
         <NavBar />
@@ -22,9 +28,11 @@ const UserDetail = props => {
           <Info user={user} errors={errors} />
           <div className="user_detail_bottom">
             <Button
-              user={user}
               label="Uložit změny"
               name="save_changes_button"
+              handleClick={() => props.save_changes(user)}
+              errors={errors}
+              disabled={getDisabled()}
             />
           </div>
         </div>
@@ -42,4 +50,12 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, null)(UserDetail);
+const mapDispatchToProps = dispatch => {
+  return {
+    save_changes: user => {
+      dispatch(save_changes(user));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);
