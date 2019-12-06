@@ -1,10 +1,5 @@
 import { validate } from "../../utils/functions";
-import {
-  saveUserDataChanges,
-  http,
-  apiEndPoint,
-  handleAjaxError
-} from "../../utils/backendCalls";
+import { saveUserDataChanges } from "../../utils/backendCalls";
 
 export const UPDATE_USER_DATA = "UPDATE_USER_DATA";
 

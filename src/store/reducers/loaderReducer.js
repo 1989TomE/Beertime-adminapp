@@ -1,6 +1,6 @@
 import { SHOW_LOADER, HIDE_LOADER } from "../actions/loaderActions";
 
-const init = true;
+const init = false;
 
 const loaderReducer = (state = init, { type, payload }) => {
   switch (type) {

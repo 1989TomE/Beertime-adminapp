@@ -1,11 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { handle_user_data_update } from "../store/actions/usersDataActions";
-import { handle_input } from "../store/actions/inputsActions";
-import PropTypes from "prop-types";
+import React from "react";
 
-class InputField extends Component {
-  displayClassName = (errors, name) => {
+const InputField = props => {
+  const displayClassName = (errors, name) => {
     let className = "input";
     if (name === "email" || name === "password") className = "input_login";
     else if (name === "rowsToDisplay") className = "input_small";
@@ -14,15 +10,7 @@ class InputField extends Component {
     else return className;
   };
 
-  getOnChangeHanlder = (e, name) => {
-    if (name === "Fname" || name === "Lname") {
-      this.props.handle_user_data_update(e);
-    } else {
-      this.props.handle_inputs(e);
-    }
-  };
-
-  getDisabled = (name, value) => {
+  const getDisabled = (name, value) => {
     if (name === "Fname") return "";
     if (name === "Lname") return "";
     if (name === "password") return "";
@@ -39,46 +27,25 @@ class InputField extends Component {
     return "disabled";
   };
 
-  getPlaceholder = name => {
+  const getPlaceholder = name => {
     if (name === "email") return "Email";
     if (name === "password") return "Heslo";
   };
 
-  render() {
-    const { name, errors, value, type } = this.props;
+  const { name, errors, value, type, handleChange } = props;
 
-    return (
-      <input
-        id={name}
-        type={type}
-        className={this.displayClassName(errors, name)}
-        value={value}
-        onChange={e => {
-          this.getOnChangeHanlder(e, name);
-        }}
-        name={name}
-        disabled={this.getDisabled(name, value)}
-        placeholder={this.getPlaceholder(name)}
-      />
-    );
-  }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  const facebook_id = ownProps.facebook_id;
-  return {
-    handle_user_data_update: e => {
-      dispatch(handle_user_data_update(e, facebook_id));
-    },
-    handle_inputs: e => {
-      dispatch(handle_input(e));
-    }
-  };
+  return (
+    <input
+      id={name}
+      type={type}
+      className={displayClassName(errors, name)}
+      value={value}
+      onChange={e => handleChange(e)}
+      name={name}
+      disabled={getDisabled(name, value)}
+      placeholder={getPlaceholder(name)}
+    />
+  );
 };
 
-InputField.propTypes = {
-  handle_change_user_inputs: PropTypes.func,
-  handle_inputs: PropTypes.func
-};
-
-export default connect(null, mapDispatchToProps)(InputField);
+export default InputField;

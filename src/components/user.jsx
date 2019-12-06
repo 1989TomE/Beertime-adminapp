@@ -3,27 +3,27 @@ import StatusIconSobering from "./statusIconSobering";
 import StatusIconArrival from "./statusIconArrival";
 import StatusIcon from "./statusIcon";
 
-class User extends Component {
-  getUserClass = () => {
-    const { clickable } = this.props;
+const User = props => {
+  const getUserClass = () => {
+    const { clickable } = props;
     return clickable ? "user_field hover" : "user_field";
   };
 
-  addDefaultSrc = e => {
+  const addDefaultSrc = e => {
     e.currentTarget.src = require("../icons/user_default.png");
   };
 
-  renderStatusIcons = user => {
+  const renderStatusIcons = user => {
     if (user.status === "sobering") {
       return <StatusIconSobering />;
     } else if (user.status === "arrival") {
       return <StatusIconArrival statusTime={user.status_time_input} />;
     } else {
-      return this.renderDrinkTypeIcons(user);
+      return renderDrinkTypeIcons(user);
     }
   };
 
-  renderDrinkTypeIcons = user => {
+  const renderDrinkTypeIcons = user => {
     const drinkTypes = ["beer", "vine", "drink", "tea", "non_alcohol"];
     const reducedArray = [];
 
@@ -51,43 +51,37 @@ class User extends Component {
     ));
   };
 
-  getFullUserName = user => {
+  const getFullUserName = user => {
     return `${user.Fname} ${user.Lname}`;
   };
 
-  getStatusPlaceName = user => {
+  const getStatusPlaceName = user => {
     if (user.status !== "sobering") return user.status_place_name;
   };
 
-  render() {
-    const { user } = this.props;
+  const { user } = props;
 
-    return (
-      <div className={this.getUserClass()}>
-        <div className="user_field_left">
-          <div className="user_field_picture_holder">
-            <img // src={user.image_url}
-              src={require("../icons/user_default.png")}
-              onError={this.addDefaultSrc}
-              alt=""
-              className="user_field_picture"
-            ></img>
-          </div>
-          <div className="user_field_name_and_status">
-            <div className="user_field_name">{this.getFullUserName(user)}</div>
-            <div className="user_field_status">
-              {this.getStatusPlaceName(user)}
-            </div>
-          </div>
+  return (
+    <div className={getUserClass()}>
+      <div className="user_field_left">
+        <div className="user_field_picture_holder">
+          <img // src={user.image_url}
+            src={require("../icons/user_default.png")}
+            onError={addDefaultSrc}
+            alt=""
+            className="user_field_picture"
+          ></img>
         </div>
-        <div className="user_field_right">
-          <div className="user_field_status_icons">
-            {this.renderStatusIcons(user)}
-          </div>
+        <div className="user_field_name_and_status">
+          <div className="user_field_name">{getFullUserName(user)}</div>
+          <div className="user_field_status">{getStatusPlaceName(user)}</div>
         </div>
       </div>
-    );
-  }
-}
+      <div className="user_field_right">
+        <div className="user_field_status_icons">{renderStatusIcons(user)}</div>
+      </div>
+    </div>
+  );
+};
 
 export default User;

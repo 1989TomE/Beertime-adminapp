@@ -1,11 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import InputField from "./inputField";
+import { connect } from "react-redux";
+import { handle_user_data_update } from "../store/actions/usersDataActions";
 
-
-
-class infoLine extends Component {
-  filterUserProperties = () => {
-    const { property } = this.props;
+const infoLine = props => {
+  const filterUserProperties = () => {
     const renderTheseKeys = [
       "facebook_id",
       "Fname",
@@ -18,35 +17,33 @@ class infoLine extends Component {
     return renderTheseKeys.indexOf(property) >= 0;
   };
 
-  render() {
+  const { property, value, facebook_id, errors } = props;
 
-    const {
-      property,
-      value,
-      facebook_id,
-      errors,
-    } = this.props;
-
-    if (this.filterUserProperties()) {
-      return (
-        <div className="info_line_field">
-          <div className="info_line_field_property">{property}:</div>
-          <InputField
-            name={property}
-            value={value}
-            errors={errors}
-            facebook_id={facebook_id}
-            type="text"
-          />
-        </div>
-      );
-    } else {
-      return null;
-    }
+  if (filterUserProperties()) {
+    return (
+      <div className="info_line_field">
+        <div className="info_line_field_property">{property}:</div>
+        <InputField
+          name={property}
+          value={value}
+          errors={errors}
+          type="text"
+          handleChange={props.handle_user_data_update}
+        />
+      </div>
+    );
+  } else {
+    return null;
   }
-}
+};
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const facebook_id = ownProps.facebook_id;
+  return {
+    handle_user_data_update: e => {
+      dispatch(handle_user_data_update(e, facebook_id));
+    }
+  };
+};
 
-
-export default infoLine;
-
+export default connect(null, mapDispatchToProps)(infoLine);
