@@ -44,7 +44,7 @@ const InputField = props => {
     if (name === "password") return "Heslo";
   };
 
-  const { name, errors, value, type } = props;
+  const { name, errors, value, type, handleChange } = props;
 
   return (
     <input
@@ -52,9 +52,7 @@ const InputField = props => {
       type={type}
       className={displayClassName(errors, name)}
       value={value}
-      onChange={e => {
-        getOnChangeHanlder(e, name);
-      }}
+      onChange={e => handleChange(e)}
       name={name}
       disabled={getDisabled(name, value)}
       placeholder={getPlaceholder(name)}

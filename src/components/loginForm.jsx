@@ -1,12 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import InputField from "./inputField";
 import Button from "./button";
-import { handle_login } from "../utils/auth";
-import { connect } from "react-redux";
+import { toast } from "react-toastify";
+import { login } from "../utils/backendCalls";
+import { validate } from "../utils/functions";
 
 const LoginForm = props => {
-  const { email, password, errors } = props;
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+    errors: {}
+  });
 
+  const handleChange = e => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setState({ ...state, [name]: value });
+  };
+
+  const handleLogin = () => {
+    const { email, password } = state;
+    const inputsToValidate = { email, password };
+    const errors = { ...state.errors };
+
+    for (let key in inputsToValidate) {
+      const value = inputsToValidate[key];
+      const error = validate(value, key);
+      if (error !== null) {
+        errors[key] = error;
+        toast.error(error);
+        break;
+      } else {
+        delete errors[key];
+      }
+    }
+    setState({ ...state, errors });
+
+    if (Object.keys(errors).length === 0 && errors.constructor === Object) {
+      login(email, password);
+    }
+  };
+
+  const { email, password, errors } = state;
   return (
     <div className="login_form">
       <div className="login_form_topic">Přihlášení:</div>
@@ -16,6 +51,7 @@ const LoginForm = props => {
         type="text"
         value={email}
         errors={errors}
+        handleChange={handleChange}
       />
 
       <InputField
@@ -24,32 +60,17 @@ const LoginForm = props => {
         type="password"
         value={password}
         errors={errors}
+        handleChange={handleChange}
       />
 
       <Button
         type="submit"
         label="Přihlásit se"
         name="login_button"
-        handleClick={props.handle_login}
+        handleClick={handleLogin}
       />
     </div>
   );
 };
 
-const mapsTateToProps = state => {
-  return {
-    errors: state.inputsErrors,
-    email: state.inputs.email,
-    password: state.inputs.password
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    handle_login: () => {
-      dispatch(handle_login);
-    }
-  };
-};
-
-export default connect(mapsTateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;

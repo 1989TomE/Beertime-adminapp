@@ -50,7 +50,8 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log(ownProps);
   return {
     save_changes: user => {
       dispatch(save_changes(user));

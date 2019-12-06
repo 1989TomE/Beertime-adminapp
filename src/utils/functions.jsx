@@ -28,7 +28,6 @@ const deepClone = object => {
 };
 
 const validate = (value, name) => {
-
   const schema = Joi.object({
     default: Joi.string().pattern(
       /^[a-zA-Z0-9áčďéěíňóřšťůúýžÁČĎÉĚÍŇÓŘŠŤŮÚÝŽ ]*$/
@@ -43,13 +42,21 @@ const validate = (value, name) => {
       .allow("")
       .min(0)
       .max(9),
-    email: Joi.string(),
-    password: Joi.string(),
+    email: Joi.string().email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "cz", "eu"] }
+    }),
+    password: Joi.string().min(1)
   });
 
   // set default or named validation
   const getSchemaHelper = name => {
-    if (name === "rowsToDisplay" || name === "searchInput" || name === "email" || name === "password") {
+    if (
+      name === "rowsToDisplay" ||
+      name === "searchInput" ||
+      name === "email" ||
+      name === "password"
+    ) {
       return name;
     } else {
       return "default";
@@ -58,7 +65,6 @@ const validate = (value, name) => {
 
   const getSchema = getSchemaHelper(name);
   var result = schema.validate({ [getSchema]: value });
-
 
   if (result.error) {
     // dont show error message again if it has been shown already
