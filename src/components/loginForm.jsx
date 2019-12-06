@@ -13,9 +13,7 @@ const LoginForm = props => {
   });
 
   const handleChange = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setState({ ...state, [name]: value });
+    setState({ ...state, [e.target.name]: e.target.value });
   };
 
   const handleLogin = () => {

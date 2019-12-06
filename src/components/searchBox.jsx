@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { handle_input } from "../store/actions/inputsActions";
+import React from "react";
 
 const SearchBox = props => {
-  const getClassName = errors => {
-    if (errors.searchInput) return "searchBoxContainer error";
+  const getClassName = () => {
+    const { inputs, name, errors } = props;
+    if (inputs.errors[name]) return "searchBoxContainer error";
     else return "searchBoxContainer";
   };
 
-  const { searchInput, errors, schemaname } = props;
+  const { inputs, schemaname, handleChange } = props;
+
   return (
-    <div className={getClassName(errors)}>
+    <div className={getClassName()}>
       <img
         src={require("../icons/search_orange.png")}
         alt=""
@@ -21,8 +21,8 @@ const SearchBox = props => {
         placeholder="Vyhledej uživatele"
         className="searchBoxInput"
         id="searchBoxInput"
-        value={searchInput}
-        onChange={e => props.handle_change(e)}
+        value={inputs.searchInput.value}
+        onChange={e => handleChange(e)}
         name="searchInput"
         schemaname={schemaname}
       ></input>
@@ -30,19 +30,4 @@ const SearchBox = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    searchInput: state.inputs.searchInput,
-    errors: state.inputsErrors
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    handle_change: e => {
-      dispatch(handle_input(e));
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
+export default SearchBox;

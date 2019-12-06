@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 class UserTable extends Component {
   filterUsers = () => {
-    // by ID or name
+    // by name
     const { usersData, searchInput } = this.props;
 
     const filteredUsers = usersData.filter(user => {
@@ -17,7 +17,7 @@ class UserTable extends Component {
 
   // no refresh when invalid search input
   shouldComponentUpdate(nextProps) {
-    return nextProps.errors.searchInput == undefined ? true : false;
+    return !nextProps.errors.hasOwnProperty("searchInput");
   }
 
   render() {
@@ -49,8 +49,6 @@ class UserTable extends Component {
 const mapStateToProps = state => {
   return {
     usersData: state.usersDataHolder.usersData,
-    errors: state.inputsErrors,
-    searchInput: state.inputs.searchInput,
     loader: state.loader
   };
 };

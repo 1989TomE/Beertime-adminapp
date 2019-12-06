@@ -1,8 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
-import { handle_user_data_update } from "../store/actions/usersDataActions";
-import { handle_input } from "../store/actions/inputsActions";
-import PropTypes from "prop-types";
 
 const InputField = props => {
   const displayClassName = (errors, name) => {
@@ -12,14 +8,6 @@ const InputField = props => {
     else className = "input_text_align_left";
     if (errors[name]) return (className += " error");
     else return className;
-  };
-
-  const getOnChangeHanlder = (e, name) => {
-    if (name === "Fname" || name === "Lname") {
-      props.handle_user_data_update(e);
-    } else {
-      props.handle_inputs(e);
-    }
   };
 
   const getDisabled = (name, value) => {
@@ -60,21 +48,4 @@ const InputField = props => {
   );
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  const facebook_id = ownProps.facebook_id;
-  return {
-    handle_user_data_update: e => {
-      dispatch(handle_user_data_update(e, facebook_id));
-    },
-    handle_inputs: e => {
-      dispatch(handle_input(e));
-    }
-  };
-};
-
-InputField.propTypes = {
-  handle_change_user_inputs: PropTypes.func,
-  handle_inputs: PropTypes.func
-};
-
-export default connect(null, mapDispatchToProps)(InputField);
+export default InputField;

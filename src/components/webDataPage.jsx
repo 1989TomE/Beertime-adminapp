@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { formatTimestamp } from "../utils/functions";
+import { formatTimestamp, validate } from "../utils/functions";
 import Checkbox from "./inputCheckbox";
 import DataTable from "./dataTable";
 import InputField from "./inputField";
@@ -7,11 +7,20 @@ import NavBar from "./navBar";
 import Button from "./button";
 import Chart from "chart.js";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
 class WebDataPage extends Component {
   state = {
-    dataVisibleButtonLable: "Zobrazit podrobná data",
-    dataVisible: false
+    toggleButton: {
+      dataVisibleButtonLable: "Zobrazit podrobná data",
+      dataVisible: false
+    },
+    rowsToDisplay: 15,
+    errors: {},
+    checkboxes: {
+      rowsToDisplayCheckbox: "checked",
+      activityCheckbox: ""
+    }
   };
 
   componentDidMount() {
@@ -22,16 +31,48 @@ class WebDataPage extends Component {
     this.renderGraph();
   }
 
+  handleChange = e => {
+    const name = e.target.name;
+    const value = e.target.value;
+    const errors = { ...this.state.errors };
+
+    const error = validate(value, name);
+
+    if (error !== null) {
+      if (!errors.hasOwnProperty(name)) toast.error(error);
+
+      errors[name] = error;
+    } else {
+      delete errors[name];
+    }
+
+    this.setState({ [name]: value, errors });
+  };
+
+  handleCheckbox = e => {
+    const name = e.target.name;
+    const checkboxes = { ...this.state.checkboxes };
+
+    const oldValue = checkboxes[name];
+    const newValue = oldValue === "checked" ? "" : "checked";
+    checkboxes[name] = newValue;
+
+    this.setState({ checkboxes });
+  };
+
   getToggleButtonLable = state => {
     return state === true ? "Zobrazit podrobná data" : "Skrýt podrobná data";
   };
 
   handleDataToggle = () => {
-    const { dataVisible } = this.state;
+    const { dataVisible } = this.state.toggleButton;
     const newLable = this.getToggleButtonLable(dataVisible);
-    this.setState({
+    const toggleButton = {
       dataVisible: !dataVisible,
       dataVisibleButtonLable: newLable
+    };
+    this.setState({
+      toggleButton
     });
   };
 
@@ -42,7 +83,8 @@ class WebDataPage extends Component {
   };
 
   getWebData = () => {
-    const { rowsToDisplay, webData } = this.props;
+    const { webData } = this.props;
+    const { rowsToDisplay } = this.state;
     return webData.slice(0, rowsToDisplay);
   };
 
@@ -56,7 +98,7 @@ class WebDataPage extends Component {
   };
 
   getGraphDatasets = () => {
-    const { rowsToDisplayCheckbox, activityCheckbox } = this.props.checkboxes;
+    const { rowsToDisplayCheckbox, activityCheckbox } = this.state.checkboxes;
     const datasets = [];
 
     const webData = this.getWebData();
@@ -104,7 +146,7 @@ class WebDataPage extends Component {
   };
 
   renderGraph() {
-    const { errors } = this.props;
+    const { errors } = this.state;
 
     const webData = this.getWebData();
 
@@ -147,8 +189,9 @@ class WebDataPage extends Component {
   }
 
   render() {
-    const { rowsToDisplay, webData, errors, loader } = this.props;
-    const { dataVisible, dataVisibleButtonLable } = this.state;
+    const { webData, loader } = this.props;
+    const { toggleButton, errors, rowsToDisplay, checkboxes } = this.state;
+    const { dataVisible, dataVisibleButtonLable } = toggleButton;
 
     return (
       <div className="main">
@@ -163,6 +206,7 @@ class WebDataPage extends Component {
                   value={rowsToDisplay}
                   schemaname="rowsToDisplay"
                   type="text"
+                  handleChange={e => this.handleChange(e)}
                 />
                 Počet dní
               </div>
@@ -172,6 +216,8 @@ class WebDataPage extends Component {
                   label="Počet uživatelů"
                   checkmark="checkmark_alt"
                   className="checkbox_alt"
+                  handleCheckbox={this.handleCheckbox}
+                  checkboxes={checkboxes}
                 />
               </div>
               <div className="web_data_head_input_holder">
@@ -180,6 +226,8 @@ class WebDataPage extends Component {
                   label="Aktivita uživatelů"
                   checkmark="checkmark"
                   className="checkbox"
+                  handleCheckbox={this.handleCheckbox}
+                  checkboxes={checkboxes}
                 />
               </div>
             </div>
@@ -208,10 +256,7 @@ class WebDataPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    checkboxes: state.checkboxes,
     webData: state.webData,
-    errors: state.inputsErrors,
-    rowsToDisplay: state.inputs.rowsToDisplay,
     loader: state.loader
   };
 };

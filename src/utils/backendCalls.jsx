@@ -8,6 +8,7 @@ import {
 } from "../store/actions/usersDataActions";
 import { hide_loader, show_loader } from "./../store/actions/loaderActions";
 import store from "../store/store";
+import { isLoggedIn } from "./auth";
 
 export const ajaxSetup = () => {
   $.ajaxSetup({ cache: false });
@@ -39,29 +40,31 @@ export const http = {
 };
 
 export const fetchServerData = async dispatch => {
-  try {
-    const token = localStorage.getItem("token");
+  if (isLoggedIn() === true) {
+    try {
+      const token = localStorage.getItem("token");
 
-    const response = await http.get(apiEndPoint + "mainData.php", {
-      limit: 100,
-      token: token
-    });
-    const data = JSON.parse(response);
-    const usersDataBackup = deepClone(data.usersData);
+      const response = await http.get(apiEndPoint + "mainData.php", {
+        limit: 100,
+        token: token
+      });
+      const data = JSON.parse(response);
+      const usersDataBackup = deepClone(data.usersData);
 
-    dispatch({
-      type: FETCH_DATA,
-      payload: {
-        webData: data.webData,
-        usersData: data.usersData,
-        usersDataBackup: usersDataBackup
+      dispatch({
+        type: FETCH_DATA,
+        payload: {
+          webData: data.webData,
+          usersData: data.usersData,
+          usersDataBackup: usersDataBackup
+        }
+      });
+    } catch (error) {
+      handleAjaxError(error);
+      if (error.type === "auth") {
+        localStorage.clear();
+        window.location.reload(false);
       }
-    });
-  } catch (error) {
-    handleAjaxError(error);
-    if (error.type === "auth") {
-      localStorage.clear();
-      window.location.reload(false);
     }
   }
 };
@@ -74,6 +77,7 @@ export const saveUserDataChanges = async (dispatch, user) => {
       data: dataToServer
     });
     const data = JSON.parse(response);
+
     if (data.response === "success") toast.success("Změny byly uloženy");
 
     dispatch({
