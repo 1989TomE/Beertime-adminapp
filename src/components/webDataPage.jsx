@@ -9,7 +9,7 @@ import Chart from "chart.js";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
-class WebDataPage extends Component {
+class WebDataPage extends React.PureComponent {
   state = {
     toggleButton: {
       dataVisibleButtonLable: "Zobrazit podrobná data",
